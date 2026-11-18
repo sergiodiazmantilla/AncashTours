@@ -1,0 +1,41 @@
+:root {
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --brand-primary: #0a587a;
+  --border-color: #e2e8f0;
+  --font-scale: 1rem;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-size: var(--font-scale);
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Modo Alto Contraste (RNF-01 / R02) */
+body.high-contrast {
+  --bg-main: #000000;
+  --bg-card: #121212;
+  --text-primary: #ffff00;
+  --text-secondary: #ffffff;
+  --brand-primary: #00e5ff;
+  --border-color: #ffff00;
+}
+
+body.high-contrast .card,
+body.high-contrast .navbar,
+body.high-contrast .bg-white {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Indicador de foco visible para navegación por teclado (RNF-02 / R06) */
+:focus-visible {
+  outline: 3px solid #f59e0b !important;
+  outline-offset: 2px;
+}

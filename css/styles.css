@@ -1,0 +1,32 @@
+.btn-brand {
+  background-color: #0a587a;
+  border-color: #0a587a;
+  color: #ffffff;
+}
+
+.btn-brand:hover,
+.btn-brand:focus {
+  background-color: #08435d;
+  border-color: #08435d;
+  color: #ffffff;
+}
+
+.text-brand {
+  color: #0a587a !important;
+}
+
+.step-badge {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.tour-card img {
+  height: 190px;
+  object-fit: cover;
+}

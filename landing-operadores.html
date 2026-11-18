@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Únete como Operador | ÁncashCosta Pass</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/accessibility.css">
+  <style>
+    .operator-hero {
+      background: linear-gradient(135deg, #0a587a 0%, #063246 100%);
+      border-radius: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra Superior Unificada -->
+  <header class="navbar navbar-expand-lg bg-white border-bottom sticky-top px-4 py-2">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="index.html">
+        <i class="bi bi-water fs-3"></i>
+        <div>
+          ÁncashCosta Pass
+          <small class="d-block text-muted" style="font-size: 0.7rem; letter-spacing: 1px;">CASMA — CHIMBOTE, PERÚ</small>
+        </div>
+      </a>
+
+      <nav aria-label="Navegación principal" class="d-flex flex-wrap gap-3 my-2 my-lg-0">
+        <a href="index.html" class="nav-link">Landing Turistas</a>
+        <a href="landing-operadores.html" class="nav-link active fw-semibold border-bottom border-2 border-primary">Landing Operadores</a>
+        <a href="dashboard-operador.html" class="nav-link">Dashboard Operador</a>
+        <a href="dashboard-admin.html" class="nav-link">Dashboard Admin</a>
+      </nav>
+
+      <!-- Herramientas de Accesibilidad -->
+      <div class="d-flex align-items-center gap-2" role="region" aria-label="Controles de accesibilidad visual">
+        <div class="form-check form-switch mb-0">
+          <input class="form-check-input" type="checkbox" id="contrastToggle">
+          <label class="form-check-label small" for="contrastToggle">Alto contraste</label>
+        </div>
+        <button id="fontDecrease" class="btn btn-outline-secondary btn-sm" aria-label="Reducir tamaño de texto">A-</button>
+        <button id="fontIncrease" class="btn btn-outline-secondary btn-sm" aria-label="Aumentar tamaño de texto">A+</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container-fluid px-4 py-4">
+    <!-- Hero B2B para Lancheros y Guías Locales -->
+    <section class="operator-hero text-white p-4 p-md-5 mb-5 shadow-sm">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <span class="badge bg-info text-dark fw-semibold px-3 py-2 rounded-pill mb-3">
+            <i class="bi bi-anchor me-1"></i> PROGRAMA DE FORMALIZACIÓN DIGITAL ÁNCASH
+          </span>
+          <h1 class="display-5 fw-bold mb-3">Digitaliza tus salidas y olvídate del cuaderno y el caos en WhatsApp.</h1>
+          <p class="lead opacity-90 mb-4">
+            Diseñado especialmente para lancheros de Chimbote y guías de Casma. Controla tu aforo automático, recibe reservas pagadas por adelantado y valida pasajeros con un clic en el muelle.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#registro-operador" class="btn btn-light text-primary fw-bold px-4 py-3 rounded-3">
+              Solicitar acreditación gratuita
+            </a>
+            <a href="dashboard-operador.html" class="btn btn-outline-light fw-semibold px-4 py-3 rounded-3">
+              Ver demo del Panel Operador <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="bg-white text-dark p-4 rounded-4 shadow">
+            <h2 class="h5 fw-bold mb-3 text-primary">¿Por qué unirte a ÁncashCosta Pass?</h2>
+            <ul class="list-unstyled mb-0 d-flex flex-column gap-3">
+              <li class="d-flex gap-3">
+                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                <div>
+                  <strong>Cero sobreventa de cupos (RN-01):</strong>
+                  <span class="d-block small text-muted">Si tu lancha tiene 15 asientos, el sistema bloquea las ventas al llegar a 15/15.</span>
+                </div>
+              </li>
+              <li class="d-flex gap-3">
+                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                <div>
+                  <strong>Pagos garantizados sin estafas:</strong>
+                  <span class="d-block small text-muted">El turista paga en la web antes de llegar al muelle; tú solo escaneas su QR.</span>
+                </div>
+              </li>
+              <li class="d-flex gap-3">
+                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                <div>
+                  <strong>Panel de "Cero Fricción":</strong>
+                  <span class="d-block small text-muted">Botones grandes y gráficos simples para ver tus ganancias semanales sin complicaciones.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pasos de Afiliación (RN-04) + Formulario de Registro -->
+    <section id="registro-operador" class="row g-4 align-items-stretch mb-4">
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+          <span class="text-uppercase small fw-bold text-primary">Proceso en 3 pasos</span>
+          <h2 class="h4 fw-bold mt-1 mb-4">¿Cómo empezar a operar?</h2>
+
+          <div class="d-flex gap-3 mb-4">
+            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 40px; height: 40px;">1</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">Envía tu credencial oficial</h3>
+              <p class="small text-muted mb-0">Registra tu DNI y número de matrícula de embarcación o carnet oficial de guía DIRCETUR.</p>
+            </div>
+          </div>
+
+          <div class="d-flex gap-3 mb-4">
+            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 40px; height: 40px;">2</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">Verificación en 24 horas (RN-04)</h3>
+              <p class="small text-muted mb-0">Nuestro equipo valida tu documentación para otorgarte el sello de "Operador Verificado" ante los turistas.</p>
+            </div>
+          </div>
+
+          <div class="d-flex gap-3">
+            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width: 40px; height: 40px;">3</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">Publica tus rutas y escanea tickets</h3>
+              <p class="small text-muted mb-0">Define tus horarios, precios en soles (S/) y capacidad máxima por salida.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulario Rápido de Solicitud -->
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+          <h2 class="h4 fw-bold mb-3">Solicita tu cuenta de Operador</h2>
+          <form onsubmit="event.preventDefault(); alert('Solicitud enviada. Un administrador validará tu matrícula DIRCETUR (RF-12).');">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="opNombre" class="form-label small fw-semibold">Nombre Completo *</label>
+                <input type="text" id="opNombre" class="form-control" placeholder="Ej. Julio Rosario Montero" required>
+              </div>
+              <div class="col-md-6">
+                <label for="opDni" class="form-label small fw-semibold">DNI *</label>
+                <input type="text" id="opDni" class="form-control" placeholder="8 dígitos" maxlength="8" required>
+              </div>
+              <div class="col-md-6">
+                <label for="opZona" class="form-label small fw-semibold">Zona de Operación *</label>
+                <select id="opZona" class="form-select" required>
+                  <option value="chimbote">Chimbote (Muelle / Isla Blanca)</option>
+                  <option value="casma">Casma (Chankillo / Sechín / Tortugas)</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="opCredencial" class="form-label small fw-semibold">N° Registro DIRCETUR / Matrícula *</label>
+                <input type="text" id="opCredencial" class="form-control" placeholder="Ej. DIR-ANC-2026-089" required>
+              </div>
+              <div class="col-12 d-grid mt-3">
+                <button type="submit" class="btn btn-primary py-2 fw-bold">
+                  Enviar solicitud de verificación
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-top bg-white text-center py-3 mt-5 small text-muted">
+    © 2026 ÁncashCosta Pass — Portal de Aliados y Operadores Turísticos Locales
+  </footer>
+
+  <script src="js/accessibility.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zona de Operadores | ÁncashCosta Pass</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/accessibility.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="navbar navbar-expand-lg bg-white border-bottom sticky-top px-4 py-2">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="index.html">
+        <i class="bi bi-water fs-3"></i>
+        <div>
+          ÁncashCosta Pass
+          <small class="d-block text-muted" style="font-size: 0.7rem; letter-spacing: 1px;">CASMA — CHIMBOTE, PERÚ</small>
+        </div>
+      </a>
+      <nav aria-label="Navegación principal" class="d-flex gap-3">
+        <a href="index.html" class="nav-link">Landing Turistas</a>
+        <a href="landing-operadores.html" class="nav-link">Landing Operadores</a>
+        <a href="login-operador.html" class="nav-link active fw-semibold border-bottom border-2 border-primary">Zona de Operadores</a>
+      </nav>
+      <div class="d-flex align-items-center gap-2">
+        <div class="form-check form-switch mb-0">
+          <input class="form-check-input" type="checkbox" id="contrastToggle">
+          <label class="form-check-label small" for="contrastToggle">Alto contraste</label>
+        </div>
+        <button id="fontDecrease" class="btn btn-outline-secondary btn-sm">A-</button>
+        <button id="fontIncrease" class="btn btn-outline-secondary btn-sm">A+</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container py-5">
+    <div class="row g-0 rounded-4 overflow-hidden shadow bg-white border" style="min-height: 540px;">
+      <!-- Columna Izquierda: Fotografía Local -->
+      <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-between p-5 text-white"
+           style="background: linear-gradient(rgba(6, 50, 70, 0.35), rgba(6, 50, 70, 0.88)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;">
+        <div>
+          <span class="badge bg-white text-dark px-3 py-2 rounded-pill fw-semibold">
+            <i class="bi bi-anchor me-1"></i> HECHO PARA NUESTRA COMUNIDAD
+          </span>
+        </div>
+        <div>
+          <h2 class="h2 fw-bold mb-3">La costa se conoce mejor con quienes la viven.</h2>
+          <p class="opacity-90 mb-2">
+            Un espacio exclusivo para guías y lancheros verificados. Organiza tus reservas, controla tu aforo sin cuadernos y valida tickets QR en el muelle.
+          </p>
+          <span class="small opacity-75"><i class="bi bi-geo-alt me-1"></i> Corredor Casma - Chimbote • Áncash</span>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Formulario Login -->
+      <div class="col-lg-6 p-4 p-md-5 d-flex flex-column justify-content-center">
+        <span class="small fw-bold text-brand text-uppercase mb-1">
+          <i class="bi bi-lock-fill me-1"></i> Solo para operadores locales
+        </span>
+        <h1 class="h3 fw-bold mb-1">Conecta con tu próxima visita</h1>
+        <p class="text-muted small mb-4">Acceso exclusivo para guías y lancheros acreditados por DIRCETUR.</p>
+
+        <form onsubmit="event.preventDefault(); window.location.href='dashboard-operador.html';">
+          <div class="mb-3">
+            <label for="correoOp" class="form-label small fw-semibold">Correo o Matrícula de Operador</label>
+            <input type="email" id="correoOp" class="form-control py-2" value="julio.rosario@ancashcosta.pe" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="passOp" class="form-label small fw-semibold">Contraseña</label>
+            <input type="password" id="passOp" class="form-control py-2" value="••••••••••••" required>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-4 small">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="recordarOp" checked>
+              <label class="form-check-label" for="recordarOp">Recordar sesión</label>
+            </div>
+            <a href="landing-operadores.html#registro-operador" class="text-decoration-none">¿Aún no tienes cuenta?</a>
+          </div>
+
+          <button type="submit" class="btn btn-brand w-100 py-3 fw-bold rounded-3 mb-3">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Ingresar al Panel de Operador
+          </button>
+
+          <div class="bg-light p-3 rounded-3 small text-center">
+            ¿Eres guía o lanchero y buscas formalizarte?
+            <a href="landing-operadores.html" class="fw-bold text-brand text-decoration-none d-block mt-1">
+              Solicitar acceso de operador →
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/accessibility.js"></script>
+</body>
+</html>
