@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <!-- Barra Superior Unificada -->
   <header class="navbar navbar-expand-lg bg-white border-bottom sticky-top px-4 py-2">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="index.html">
@@ -20,13 +21,29 @@
           <small class="d-block text-muted" style="font-size: 0.7rem; letter-spacing: 1px;">CASMA — CHIMBOTE, PERÚ</small>
         </div>
       </a>
-      <div class="d-flex align-items-center gap-2">
-        <div class="form-check form-switch mb-0">
-          <input class="form-check-input" type="checkbox" id="contrastToggle">
-          <label class="form-check-label small" for="contrastToggle">Alto contraste</label>
+
+      <!-- Las 3 opciones exactas del prototipo Figma para el Turista -->
+      <nav aria-label="Navegación del turista" class="d-flex gap-4 my-2 my-lg-0">
+        <a href="index.html" class="nav-link fw-semibold">Explorar</a>
+        <a href="tours.html" class="nav-link fw-semibold">Tours</a>
+        <a href="ticket.html" id="navMiTicket" class="nav-link fw-semibold">Mi ticket</a>
+      </nav>
+
+      <div class="d-flex align-items-center gap-3">
+        <!-- Controles de Accesibilidad (RF-11) -->
+        <div class="d-flex align-items-center gap-2" role="region" aria-label="Herramientas de accesibilidad">
+          <div class="form-check form-switch mb-0">
+            <input class="form-check-input" type="checkbox" id="contrastToggle">
+            <label class="form-check-label small" for="contrastToggle">Alto contraste</label>
+          </div>
+          <button id="fontDecrease" class="btn btn-outline-secondary btn-sm">A-</button>
+          <button id="fontIncrease" class="btn btn-outline-secondary btn-sm">A+</button>
         </div>
-        <button id="fontDecrease" class="btn btn-outline-secondary btn-sm">A-</button>
-        <button id="fontIncrease" class="btn btn-outline-secondary btn-sm">A+</button>
+
+        <!-- Acceso discreto para operadores (sin mezclar dashboards) -->
+        <a href="login-operador.html" class="btn btn-outline-primary btn-sm border-start ps-3">
+          <i class="bi bi-briefcase me-1"></i> Zona de operadores
+        </a>
       </div>
     </div>
   </header>
@@ -57,23 +74,23 @@
           <div class="row g-3 mb-4">
             <div class="col-md-6">
               <label for="titularNombre" class="form-label small fw-semibold">Nombre completo *</label>
-              <input type="text" id="titularNombre" class="form-control" value="Nicolás Alejandro Poma Ortiz" required>
+              <input type="text" id="titularNombre" class="form-control" required>
             </div>
             <div class="col-md-6">
               <label for="titularDni" class="form-label small fw-semibold">Documento de identidad (DNI / Pasaporte) *</label>
-              <input type="text" id="titularDni" class="form-control" value="72849103" required>
+              <input type="text" id="titularDni" class="form-control"  required>
             </div>
             <div class="col-md-6">
               <label for="titularCorreo" class="form-label small fw-semibold">Correo electrónico *</label>
-              <input type="email" id="titularCorreo" class="form-control" value="nicolas.poma@upn.pe" required>
+              <input type="email" id="titularCorreo" class="form-control" required>
             </div>
             <div class="col-md-6">
               <label for="titularTelefono" class="form-label small fw-semibold">Teléfono de contacto *</label>
-              <input type="tel" id="titularTelefono" class="form-control" value="+51 948 123 456" required>
+              <input type="tel" id="titularTelefono" class="form-control"  required>
             </div>
             <div class="col-md-6">
               <label for="fechaVisita" class="form-label small fw-semibold">Fecha de la visita *</label>
-              <input type="date" id="fechaVisita" class="form-control" value="2026-11-22" required>
+              <input type="date" id="fechaVisita" class="form-control" required>
             </div>
             <div class="col-md-6">
               <label for="numPasajeros" class="form-label small fw-semibold">Número de pasajeros (Máx. 15) *</label>
@@ -166,6 +183,7 @@
   </main>
 
   <script src="js/accessibility.js"></script>
+  <script src="js/db.js"></script>
   <script>
     // Cálculo dinámico en tiempo real (HU #3) y guardado en localStorage para el Ticket
     const selectPasajeros = document.getElementById('numPasajeros');
@@ -188,6 +206,7 @@
         total: (parseInt(selectPasajeros.value) * precioUnitario).toFixed(2)
       };
       localStorage.setItem('ultimaReserva', JSON.stringify(datos));
+      guardarReservaTurista(datos)
       window.location.href = 'ticket.html';
     });
   </script>

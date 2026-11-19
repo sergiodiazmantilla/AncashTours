@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <!-- Cabecera fiel al Módulo 6 de Figma -->
   <header class="navbar navbar-expand-lg bg-white border-bottom sticky-top px-4 py-2">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="index.html">
@@ -20,10 +21,9 @@
           <small class="d-block text-muted" style="font-size: 0.7rem; letter-spacing: 1px;">CASMA — CHIMBOTE, PERÚ</small>
         </div>
       </a>
-      <nav aria-label="Navegación principal" class="d-flex gap-3">
-        <a href="index.html" class="nav-link">Landing Turistas</a>
-        <a href="landing-operadores.html" class="nav-link">Landing Operadores</a>
-        <a href="login-operador.html" class="nav-link active fw-semibold border-bottom border-2 border-primary">Zona de Operadores</a>
+      <nav aria-label="Navegación principal" class="d-flex gap-4">
+        <a href="index.html" class="nav-link fw-semibold">Explorar</a>
+        <a href="login-operador.html" class="nav-link active fw-semibold border-bottom border-2 border-primary">Zona de operadores</a>
       </nav>
       <div class="d-flex align-items-center gap-2">
         <div class="form-check form-switch mb-0">
@@ -63,31 +63,30 @@
         <h1 class="h3 fw-bold mb-1">Conecta con tu próxima visita</h1>
         <p class="text-muted small mb-4">Acceso exclusivo para guías y lancheros acreditados por DIRCETUR.</p>
 
-        <form onsubmit="event.preventDefault(); window.location.href='dashboard-operador.html';">
+        <div id="alertaLoginOp" class="alert alert-danger d-none small"></div>
+
+        <form id="formLoginOperador">
           <div class="mb-3">
-            <label for="correoOp" class="form-label small fw-semibold">Correo o Matrícula de Operador</label>
-            <input type="email" id="correoOp" class="form-control py-2" value="julio.rosario@ancashcosta.pe" required>
+            <label for="correoOp" class="form-label small fw-semibold">Correo del operador</label>
+            <input type="email" id="correoOp" class="form-control py-2" value="operador_sd@ancashcosta.pe" required>
           </div>
 
           <div class="mb-3">
             <label for="passOp" class="form-label small fw-semibold">Contraseña</label>
-            <input type="password" id="passOp" class="form-control py-2" value="••••••••••••" required>
+            <input type="password" id="passOp" class="form-control py-2" value="123" required>
           </div>
 
-          <div class="d-flex justify-content-between align-items-center mb-4 small">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="recordarOp" checked>
-              <label class="form-check-label" for="recordarOp">Recordar sesión</label>
-            </div>
-            <a href="landing-operadores.html#registro-operador" class="text-decoration-none">¿Aún no tienes cuenta?</a>
+          <div class="bg-light p-2 rounded-3 small mb-3">
+            <strong>Credencial de prueba (DB local):</strong><br>
+            Correo: <code>operador_sd@ancashcosta.pe</code> | Clave: <code>123</code>
           </div>
 
           <button type="submit" class="btn btn-brand w-100 py-3 fw-bold rounded-3 mb-3">
-            <i class="bi bi-box-arrow-in-right me-1"></i> Ingresar al Panel de Operador
+            <i class="bi bi-box-arrow-in-right me-1"></i> Ingresar al panel
           </button>
 
           <div class="bg-light p-3 rounded-3 small text-center">
-            ¿Eres guía o lanchero y buscas formalizarte?
+            ¿Eres guía o lanchero y aún no tienes cuenta?
             <a href="landing-operadores.html" class="fw-bold text-brand text-decoration-none d-block mt-1">
               Solicitar acceso de operador →
             </a>
@@ -98,5 +97,22 @@
   </main>
 
   <script src="js/accessibility.js"></script>
+  <script src="js/db.js"></script>
+  <script>
+    document.getElementById('formLoginOperador').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const correo = document.getElementById('correoOp').value;
+      const password = document.getElementById('passOp').value;
+
+      const resultado = await iniciarSesionOperador(correo, password);
+      if (resultado.ok) {
+        window.location.href = 'dashboard-operador.html';
+      } else {
+        const alerta = document.getElementById('alertaLoginOp');
+        alerta.textContent = resultado.mensaje;
+        alerta.classList.remove('d-none');
+      }
+    });
+  </script>
 </body>
 </html>

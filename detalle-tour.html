@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Barra Superior Unificada -->
   <header class="navbar navbar-expand-lg bg-white border-bottom sticky-top px-4 py-2">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="index.html">
@@ -20,19 +21,29 @@
           <small class="d-block text-muted" style="font-size: 0.7rem; letter-spacing: 1px;">CASMA — CHIMBOTE, PERÚ</small>
         </div>
       </a>
-      <nav aria-label="Navegación principal" class="d-flex flex-wrap gap-3">
-        <a href="index.html" class="nav-link">Landing Turistas</a>
-        <a href="tours.html" class="nav-link active fw-semibold border-bottom border-2 border-primary">Tours</a>
-        <a href="ticket.html" class="nav-link">Mi Ticket</a>
-        <a href="dashboard-operador.html" class="nav-link">Dashboard Op.</a>
+
+      <!-- Las 3 opciones exactas del prototipo Figma para el Turista -->
+      <nav aria-label="Navegación del turista" class="d-flex gap-4 my-2 my-lg-0">
+        <a href="index.html" class="nav-link fw-semibold">Explorar</a>
+        <a href="tours.html" class="nav-link fw-semibold">Tours</a>
+        <a href="ticket.html" id="navMiTicket" class="nav-link fw-semibold">Mi ticket</a>
       </nav>
-      <div class="d-flex align-items-center gap-2">
-        <div class="form-check form-switch mb-0">
-          <input class="form-check-input" type="checkbox" id="contrastToggle">
-          <label class="form-check-label small" for="contrastToggle">Alto contraste</label>
+
+      <div class="d-flex align-items-center gap-3">
+        <!-- Controles de Accesibilidad (RF-11) -->
+        <div class="d-flex align-items-center gap-2" role="region" aria-label="Herramientas de accesibilidad">
+          <div class="form-check form-switch mb-0">
+            <input class="form-check-input" type="checkbox" id="contrastToggle">
+            <label class="form-check-label small" for="contrastToggle">Alto contraste</label>
+          </div>
+          <button id="fontDecrease" class="btn btn-outline-secondary btn-sm">A-</button>
+          <button id="fontIncrease" class="btn btn-outline-secondary btn-sm">A+</button>
         </div>
-        <button id="fontDecrease" class="btn btn-outline-secondary btn-sm">A-</button>
-        <button id="fontIncrease" class="btn btn-outline-secondary btn-sm">A+</button>
+
+        <!-- Acceso discreto para operadores (sin mezclar dashboards) -->
+        <a href="login-operador.html" class="btn btn-outline-primary btn-sm border-start ps-3">
+          <i class="bi bi-briefcase me-1"></i> Zona de operadores
+        </a>
       </div>
     </div>
   </header>
@@ -137,9 +148,7 @@
             <strong>Anticipación mínima (RN-02):</strong> Las reservas digitales se realizan con al menos 12 horas de anticipación.
           </div>
 
-          <a href="reserva.html" class="btn btn-brand w-100 py-3 fw-bold rounded-3">
-            <i class="bi bi-arrow-right me-1"></i> Reservar esta experiencia
-          </a>
+          <a href="reserva.html" class="btn btn-brand w-100 py-3 fw-bold rounded-3">Reservar esta experiencia</a>
         </div>
       </div>
     </div>

@@ -5,36 +5,99 @@
   --text-secondary: #475569;
   --brand-primary: #0a587a;
   --border-color: #e2e8f0;
-  --font-scale: 1rem;
 }
 
 body {
   background-color: var(--bg-main);
   color: var(--text-primary);
-  font-size: var(--font-scale);
   font-family: 'Inter', system-ui, sans-serif;
   transition: background-color 0.2s, color 0.2s;
 }
 
-/* Modo Alto Contraste (RNF-01 / R02) */
+/* Modo Alto Contraste Estricto (WCAG 2.0) */
 body.high-contrast {
   --bg-main: #000000;
-  --bg-card: #121212;
+  --bg-card: #0a0a0a;
   --text-primary: #ffff00;
   --text-secondary: #ffffff;
   --brand-primary: #00e5ff;
   --border-color: #ffff00;
 }
 
-body.high-contrast .card,
-body.high-contrast .navbar,
-body.high-contrast .bg-white {
-  background-color: var(--bg-card) !important;
-  color: var(--text-primary) !important;
-  border: 1px solid var(--border-color) !important;
+body.high-contrast,
+body.high-contrast main,
+body.high-contrast section {
+  background-color: #000000 !important;
+  color: #ffff00 !important;
 }
 
-/* Indicador de foco visible para navegación por teclado (RNF-02 / R06) */
+body.high-contrast .card,
+body.high-contrast .navbar,
+body.high-contrast aside,
+body.high-contrast .bg-white,
+body.high-contrast .bg-light,
+body.high-contrast footer {
+  background-color: #0a0a0a !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+/* Corrige textos grises y oscuros de Bootstrap que no se veían */
+body.high-contrast .text-muted,
+body.high-contrast .text-dark,
+body.high-contrast .text-secondary,
+body.high-contrast small,
+body.high-contrast p,
+body.high-contrast span,
+body.high-contrast label {
+  color: #ffffff !important;
+}
+
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast h4,
+body.high-contrast strong,
+body.high-contrast .text-brand,
+body.high-contrast .text-primary,
+body.high-contrast .nav-link.active {
+  color: #ffff00 !important;
+}
+
+body.high-contrast .nav-link {
+  color: #ffffff !important;
+}
+
+body.high-contrast .form-control,
+body.high-contrast .form-select {
+  background-color: #000000 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+body.high-contrast .table,
+body.high-contrast .table th,
+body.high-contrast .table td {
+  background-color: #0a0a0a !important;
+  color: #ffffff !important;
+  border-color: #ffff00 !important;
+}
+
+body.high-contrast .btn-brand,
+body.high-contrast .btn-primary {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
+  border: 2px solid #ffff00 !important;
+  font-weight: 700 !important;
+}
+
+/* Pestaña "Mi ticket" deshabilitada hasta reservar */
+.nav-link.disabled-ticket {
+  opacity: 0.45;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 :focus-visible {
   outline: 3px solid #f59e0b !important;
   outline-offset: 2px;

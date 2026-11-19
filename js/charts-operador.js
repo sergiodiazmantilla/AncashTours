@@ -1,55 +1,55 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. Gráfico obligatorio: Conversión de clientes
-  new Chart(document.getElementById('chartConversionOperador'), {
-    type: 'bar',
-    data: {
-      labels: ['Visitas al Tour', 'Clic en Reservar', 'Datos Completados', 'Ticket QR Pagado'],
-      datasets: [{
-        label: 'Turistas (Últimos 30 días)',
-        data: [320, 145, 90, 78],
-        backgroundColor: ['#94a3b8', '#38bdf8', '#0284c7', '#0a587a']
-      }]
-    },
-    options: { responsive: true }
-  });
+let chartVentas, chartPasajeros;
 
-  // 2. Ventas semanales (Fiel a tu prototipo de Figma)
-  new Chart(document.getElementById('chartVentasSemanales'), {
+function renderizarGraficosOperador() {
+  const isHighContrast = document.body.classList.contains('high-contrast');
+  const textColor = isHighContrast ? '#ffff00' : '#0f172a';
+  const gridColor = isHighContrast ? 'rgba(255, 255, 0, 0.25)' : 'rgba(0, 0, 0, 0.08)';
+  const barPrimary = isHighContrast ? '#ffff00' : '#0a587a';
+  const barSecondary = isHighContrast ? '#00e5ff' : '#93c5fd';
+
+  if (chartVentas) chartVentas.destroy();
+  if (chartPasajeros) chartPasajeros.destroy();
+
+  // Gráfico 1: Ventas semanales (Fiel a Figma y RF-08 / HU #17)
+  chartVentas = new Chart(document.getElementById('chartVentasSemanales'), {
     type: 'bar',
     data: {
       labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
       datasets: [{
-        label: 'Reservas Confirmadas',
-        data: [3, 4, 5, 4, 8, 11, 7],
-        backgroundColor: '#0a587a'
+        label: 'Reservas por día',
+        data: [1, 2, 3, 2, 4, 2, 1],
+        backgroundColor: [barSecondary, barSecondary, barSecondary, barSecondary, barPrimary, barSecondary, barSecondary],
+        borderRadius: 6
       }]
     },
-    options: { responsive: true }
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: textColor } } },
+      scales: {
+        x: { ticks: { color: textColor }, grid: { color: gridColor } },
+        y: { ticks: { color: textColor, stepSize: 1 }, grid: { color: gridColor } }
+      }
+    }
   });
 
-  // 3. Ocupación de aforo por ruta
-  new Chart(document.getElementById('chartAforoRutas'), {
-    type: 'line',
-    data: {
-      labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
-      datasets: [
-        { label: 'Isla Blanca (%)', data: [65, 78, 85, 93], borderColor: '#0a587a', tension: 0.3 },
-        { label: 'Caleta Colorada (%)', data: [40, 55, 60, 75], borderColor: '#f59e0b', tension: 0.3 }
-      ]
-    },
-    options: { responsive: true }
-  });
-
-  // 4. Estado de Tickets QR
-  new Chart(document.getElementById('chartEstadoTickets'), {
+  // Gráfico 2: Distribución de pasajeros por experiencia (RF-08)
+  chartPasajeros = new Chart(document.getElementById('chartDistribucionPasajeros'), {
     type: 'doughnut',
     data: {
-      labels: ['Canjeados en Muelle', 'Pendientes de Viaje', 'Cancelados (Fuerza Mayor)'],
+      labels: ['Chankillo (Solar)', 'Isla Blanca (Marino)', 'Sechín (Cultural)'],
       datasets: [{
-        data: [68, 25, 7],
-        backgroundColor: ['#10b981', '#0a587a', '#ef4444']
+        data: [8, 5, 2],
+        backgroundColor: isHighContrast ? ['#ffff00', '#00e5ff', '#ffffff'] : ['#0a587a', '#38bdf8', '#94a3b8'],
+        borderColor: isHighContrast ? '#000000' : '#ffffff',
+        borderWidth: 2
       }]
     },
-    options: { responsive: true }
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom', labels: { color: textColor } } }
+    }
   });
-});
+}
+
+document.addEventListener('DOMContentLoaded', renderizarGraficosOperador);
+window.addEventListener('contrastChanged', renderizarGraficosOperador);

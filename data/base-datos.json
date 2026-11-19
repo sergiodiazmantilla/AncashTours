@@ -1,0 +1,44 @@
+{
+  "operadores": [
+    {
+      "id": "OP-01",
+      "nombre": "Sergio Díaz",
+      "correo": "operador_sd@ancashcosta.pe",
+      "password": "123",
+      "credencial": "MAT-CHM-0412"
+    },
+    {
+      "id": "OP-02",
+      "nombre": "Julio Rosario Montero",
+      "correo": "julio.rosario@ancashcosta.pe",
+      "password": "123",
+      "credencial": "MAT-CHM-0891"
+    }
+  ],
+  "reservasIniciales": [
+    {
+      "id": "ACP-CHK-001",
+      "titular": "Nicolás Poma",
+      "experiencia": "Chankillo, Solar",
+      "fecha": "15/09/2026",
+      "pasajeros": 2,
+      "estado": "Reservado"
+    },
+    {
+      "id": "ACP-SEC-002",
+      "titular": "Lucía Salazar",
+      "experiencia": "Sechín, Cultural",
+      "fecha": "15/09/2026",
+      "pasajeros": 3,
+      "estado": "Reservado"
+    },
+    {
+      "id": "ACP-ISL-003",
+      "titular": "Andrés Vega",
+      "experiencia": "Isla Blanca, Marino",
+      "fecha": "16/09/2026",
+      "pasajeros": 2,
+      "estado": "Reservado"
+    }
+  ]
+}
