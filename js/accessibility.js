@@ -110,42 +110,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 4. TECLADO VIRTUAL GLOBAL PARA DISCAPACIDAD MOTORA
-  iniciarTecladoVirtualGlobal();
+  // 4. PANEL UNIFICADO DE ACCESIBILIDAD MOTORA (TECLADO + VOZ + FLECHAS)
+  iniciarPanelAccesibilidadMotora();
 });
 
-function iniciarTecladoVirtualGlobal() {
-  // Inyectar botón "Teclado" automáticamente junto al botón A+ de la barra superior
+function iniciarPanelAccesibilidadMotora() {
+  // Inyectar botón único "Teclado" junto al botón A+ de la barra superior
   const btnIncrease = document.getElementById('fontIncrease');
   if (btnIncrease && !document.getElementById('btnToggleTeclado')) {
     const btnTeclado = document.createElement('button');
     btnTeclado.id = 'btnToggleTeclado';
     btnTeclado.type = 'button';
     btnTeclado.className = 'btn btn-outline-primary btn-sm fw-semibold';
-    btnTeclado.setAttribute('aria-label', 'Mostrar u ocultar teclado virtual en pantalla');
+    btnTeclado.setAttribute('aria-label', 'Mostrar u ocultar teclado virtual y controles de desplazamiento');
     btnTeclado.innerHTML = '<i class="bi bi-keyboard me-1"></i> Teclado';
     btnIncrease.parentNode.insertBefore(btnTeclado, btnIncrease.nextSibling);
   }
 
-  // Crear contenedor del teclado en el DOM
+  // Crear contenedor unificado con Teclado a la izquierda y Flechas a la derecha
   const vkWrapper = document.createElement('div');
   vkWrapper.id = 'virtualKeyboardContainer';
   vkWrapper.setAttribute('role', 'region');
-  vkWrapper.setAttribute('aria-label', 'Teclado virtual en pantalla');
+  vkWrapper.setAttribute('aria-label', 'Teclado virtual y control de desplazamiento');
   vkWrapper.innerHTML = `
-      <div class="vk-header">
-        <span><i class="bi bi-keyboard me-1"></i> <strong>Teclado Virtual</strong> — Escribe con el mouse o dicta por voz</span>
-        <div class="d-flex align-items-center gap-2">
-          <button type="button" id="vkVoiceBtn" class="btn btn-sm btn-outline-primary fw-semibold py-0 px-2">
-            <i class="bi bi-mic-fill me-1"></i> Dictar por voz
+    <div class="vk-header">
+      <span><i class="bi bi-universal-access me-1"></i> <strong>Asistente Motor</strong> — Escribe con el mouse, dicta por voz o desliza la pantalla</span>
+      <div class="d-flex align-items-center gap-2">
+        <button type="button" id="vkVoiceBtn" class="btn btn-sm btn-outline-primary fw-semibold py-0 px-2">
+          <i class="bi bi-mic-fill me-1"></i> Dictar por voz
+        </button>
+        <button type="button" id="vkCloseBtn" class="btn btn-sm btn-outline-danger py-0 px-2">Cerrar ✕</button>
+      </div>
+    </div>
+
+    <div class="vk-body-layout">
+      <!-- Bloque Izquierdo: Teclado QWERTY -->
+      <div class="vk-grid" id="vkKeysGrid"></div>
+
+      <!-- Bloque Derecho: Cruceta Direccional Integrada -->
+      <div class="vk-nav-section">
+        <span class="vk-nav-label">Desplazar vista</span>
+        <div class="navpad-grid">
+          <div></div>
+          <button type="button" class="navpad-btn" id="navUp" aria-label="Desplazar hacia arriba" title="Subir">
+            <i class="bi bi-arrow-up"></i>
           </button>
-          <button type="button" id="vkCloseBtn" class="btn btn-sm btn-outline-danger py-0 px-2">Cerrar ✕</button>
+          <div></div>
+
+          <button type="button" class="navpad-btn" id="navLeft" aria-label="Desplazar hacia la izquierda" title="Izquierda">
+            <i class="bi bi-arrow-left"></i>
+          </button>
+          <button type="button" class="navpad-btn navpad-center" id="navTop" aria-label="Volver al inicio de la página" title="Ir arriba del todo">
+            Inicio
+          </button>
+          <button type="button" class="navpad-btn" id="navRight" aria-label="Desplazar hacia la derecha" title="Derecha">
+            <i class="bi bi-arrow-right"></i>
+          </button>
+
+          <div></div>
+          <button type="button" class="navpad-btn" id="navDown" aria-label="Desplazar hacia abajo" title="Bajar">
+            <i class="bi bi-arrow-down"></i>
+          </button>
+          <div></div>
         </div>
       </div>
-      <div class="vk-grid" id="vkKeysGrid"></div>
-    `;
+    </div>
+  `;
   document.body.appendChild(vkWrapper);
 
+  // --- LÓGICA DEL TECLADO VIRTUAL ---
   let campoActivo = null;
   let mayusculas = false;
 
@@ -157,7 +190,6 @@ function iniciarTecladoVirtualGlobal() {
     ['Espacio', 'Limpiar']
   ];
 
-  // Detectar en qué input o textarea está escribiendo el usuario
   document.addEventListener('focusin', (e) => {
     const tag = e.target.tagName.toLowerCase();
     const tiposTexto = ['text', 'email', 'password', 'tel', 'search', 'number'];
@@ -195,7 +227,6 @@ function iniciarTecladoVirtualGlobal() {
           btn.classList.add('bg-primary', 'text-white');
         }
 
-        // Evita perder el foco del input al presionar la tecla con el mouse
         btn.addEventListener('mousedown', (e) => {
           e.preventDefault();
           procesarPulsacion(tecla, etiqueta);
@@ -216,7 +247,6 @@ function iniciarTecladoVirtualGlobal() {
     }
 
     if (!campoActivo) {
-      // Si aún no tocó ningún campo, selecciona automáticamente el primer input visible
       const primerInput = document.querySelector('input[type="text"], input[type="email"], input[type="search"]');
       if (primerInput) {
         primerInput.focus();
@@ -236,32 +266,44 @@ function iniciarTecladoVirtualGlobal() {
       campoActivo.value += valorCaracter;
     }
 
-    // Dispara el evento 'input' para que filtros de búsqueda en vivo reaccionen al instante
     campoActivo.dispatchEvent(new Event('input', { bubbles: true }));
     campoActivo.focus();
   }
 
   renderizarTeclas();
 
-  // Restaurar estado abierto/cerrado al navegar entre páginas
-  if (localStorage.getItem('virtualKeyboardOpen') === 'true') {
-    vkWrapper.classList.add('vk-visible');
-  }
+  // --- LÓGICA DE LAS FLECHAS DIRECCIONALES INTEGRADAS ---
+  const desplazar = (x, y) => {
+    window.scrollBy({ left: x, top: y, behavior: 'smooth' });
+    const contenedorHorizontal = document.querySelector('.table-responsive');
+    if (contenedorHorizontal && x !== 0) {
+      contenedorHorizontal.scrollBy({ left: x, behavior: 'smooth' });
+    }
+  };
 
-  const toggleBtn = document.getElementById('btnToggleTeclado');
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-      const visible = vkWrapper.classList.toggle('vk-visible');
-      localStorage.setItem('virtualKeyboardOpen', visible);
+  let intervaloScroll = null;
+  const vincularDireccion = (idBtn, dx, dy) => {
+    const btn = document.getElementById(idBtn);
+    btn.addEventListener('mousedown', (e) => {
+      e.preventDefault(); // Evita quitar el foco si estaba escribiendo
+      desplazar(dx, dy);
+      intervaloScroll = setInterval(() => desplazar(dx, dy), 180);
     });
-  }
+    btn.addEventListener('mouseup', () => clearInterval(intervaloScroll));
+    btn.addEventListener('mouseleave', () => clearInterval(intervaloScroll));
+  };
 
-  document.getElementById('vkCloseBtn').addEventListener('click', () => {
-    vkWrapper.classList.remove('vk-visible');
-    localStorage.setItem('virtualKeyboardOpen', 'false');
+  vincularDireccion('navUp', 0, -260);
+  vincularDireccion('navDown', 0, 260);
+  vincularDireccion('navLeft', -220, 0);
+  vincularDireccion('navRight', 220, 0);
+
+  document.getElementById('navTop').addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   });
 
-  // --- DICTADO POR VOZ (WEB SPEECH API - INTERACCIÓN NATURAL) ---
+  // --- DICTADO POR VOZ (WEB SPEECH API) ---
   const btnVoz = document.getElementById('vkVoiceBtn');
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -270,14 +312,14 @@ function iniciarTecladoVirtualGlobal() {
     btnVoz.title = 'Tu navegador no soporta dictado por voz (usa Chrome o Edge)';
   } else {
     const recognition = new SpeechRecognition();
-    recognition.lang = 'es-PE'; // Español de Perú
+    recognition.lang = 'es-PE';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
     let escuchando = false;
 
     btnVoz.addEventListener('mousedown', (e) => {
-      e.preventDefault(); // Evita quitar el foco del campo activo
+      e.preventDefault();
       if (!escuchando) {
         recognition.start();
       } else {
@@ -292,10 +334,8 @@ function iniciarTecladoVirtualGlobal() {
     };
 
     recognition.onresult = (event) => {
-      // 1. Limpia espacios al inicio/final y elimina cualquier punto (.) puesto automáticamente al final
       let textoDictado = event.results[0][0].transcript.trim().replace(/\.+$/, '');
 
-      // Si no hay un campo seleccionado, toma el primer input de texto visible
       if (!campoActivo) {
         const primerInput = document.querySelector('input[type="text"], input[type="email"], input[type="search"]');
         if (primerInput) {
@@ -306,7 +346,6 @@ function iniciarTecladoVirtualGlobal() {
         }
       }
 
-      // Si es un correo o teléfono, quita espacios innecesarios
       if (campoActivo.type === 'email') {
         textoDictado = textoDictado
           .toLowerCase()
@@ -332,4 +371,22 @@ function iniciarTecladoVirtualGlobal() {
       btnVoz.innerHTML = '<i class="bi bi-mic-fill me-1"></i> Dictar por voz';
     };
   }
+
+  // --- MOSTRAR / OCULTAR PANEL UNIFICADO ---
+  if (localStorage.getItem('virtualKeyboardOpen') === 'true') {
+    vkWrapper.classList.add('vk-visible');
+  }
+
+  const toggleBtn = document.getElementById('btnToggleTeclado');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const visible = vkWrapper.classList.toggle('vk-visible');
+      localStorage.setItem('virtualKeyboardOpen', visible);
+    });
+  }
+
+  document.getElementById('vkCloseBtn').addEventListener('click', () => {
+    vkWrapper.classList.remove('vk-visible');
+    localStorage.setItem('virtualKeyboardOpen', 'false');
+  });
 }

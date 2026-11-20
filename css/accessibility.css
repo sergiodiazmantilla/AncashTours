@@ -103,9 +103,8 @@ body.high-contrast .btn-primary {
   outline-offset: 2px;
 }
 
-
 /* =========================================================
-   TECLADO VIRTUAL EN PANTALLA (ACCESIBILIDAD MOTORA)
+   TECLADO VIRTUAL + FLECHAS DIRECCIONALES UNIFICADOS
    ========================================================= */
 #virtualKeyboardContainer {
   position: fixed;
@@ -128,17 +127,26 @@ body.high-contrast .btn-primary {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 960px;
-  margin: 0 auto 8px auto;
+  max-width: 1060px;
+  margin: 0 auto 10px auto;
   font-size: 0.85rem;
+}
+
+/* Contenedor flex: Teclas a la izquierda + Cruceta de flechas a la derecha */
+.vk-body-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  max-width: 1060px;
+  margin: 0 auto;
+  flex-wrap: wrap;
 }
 
 .vk-grid {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  max-width: 960px;
-  margin: 0 auto;
 }
 
 .vk-row {
@@ -148,15 +156,15 @@ body.high-contrast .btn-primary {
 }
 
 .vk-key {
-  min-width: 42px;
-  height: 44px;
+  min-width: 40px;
+  height: 42px;
   padding: 0 10px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   background-color: #f8fafc;
   color: #0f172a;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   user-select: none;
   transition: background-color 0.15s, transform 0.05s;
@@ -171,12 +179,68 @@ body.high-contrast .btn-primary {
 }
 
 .vk-key-wide {
-  min-width: 95px;
+  min-width: 90px;
 }
 
 .vk-key-space {
   flex: 1;
-  max-width: 360px;
+  max-width: 340px;
+}
+
+/* Bloque derecho integrado: Cruceta de desplazamiento */
+.vk-nav-section {
+  border-left: 1px solid #e2e8f0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vk-nav-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.navpad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  grid-template-rows: repeat(3, 44px);
+  gap: 5px;
+}
+
+.navpad-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background-color: #f8fafc;
+  color: #0f172a;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s, transform 0.05s;
+}
+
+.navpad-btn:hover {
+  background-color: #e2e8f0;
+}
+
+.navpad-btn:active {
+  transform: scale(0.94);
+}
+
+.navpad-center {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.68rem;
+  font-weight: 700;
 }
 
 /* Compatibilidad con Modo Alto Contraste */
@@ -186,13 +250,23 @@ body.high-contrast #virtualKeyboardContainer {
   color: #ffff00 !important;
 }
 
-body.high-contrast .vk-key {
+body.high-contrast .vk-nav-section {
+  border-left-color: #ffff00 !important;
+}
+
+body.high-contrast .vk-nav-label {
+  color: #ffff00 !important;
+}
+
+body.high-contrast .vk-key,
+body.high-contrast .navpad-btn {
   background-color: #000000 !important;
   color: #ffff00 !important;
   border: 1px solid #ffff00 !important;
 }
 
-body.high-contrast .vk-key:hover {
+body.high-contrast .vk-key:hover,
+body.high-contrast .navpad-btn:hover {
   background-color: #ffff00 !important;
   color: #000000 !important;
 }
