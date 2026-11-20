@@ -102,3 +102,97 @@ body.high-contrast .btn-primary {
   outline: 3px solid #f59e0b !important;
   outline-offset: 2px;
 }
+
+
+/* =========================================================
+   TECLADO VIRTUAL EN PANTALLA (ACCESIBILIDAD MOTORA)
+   ========================================================= */
+#virtualKeyboardContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  border-top: 2px solid #cbd5e1;
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.15);
+  padding: 12px 16px;
+  z-index: 1080;
+  display: none;
+}
+
+#virtualKeyboardContainer.vk-visible {
+  display: block;
+}
+
+.vk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 960px;
+  margin: 0 auto 8px auto;
+  font-size: 0.85rem;
+}
+
+.vk-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.vk-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.vk-key {
+  min-width: 42px;
+  height: 44px;
+  padding: 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s, transform 0.05s;
+}
+
+.vk-key:hover {
+  background-color: #e2e8f0;
+}
+
+.vk-key:active {
+  transform: scale(0.96);
+}
+
+.vk-key-wide {
+  min-width: 95px;
+}
+
+.vk-key-space {
+  flex: 1;
+  max-width: 360px;
+}
+
+/* Compatibilidad con Modo Alto Contraste */
+body.high-contrast #virtualKeyboardContainer {
+  background-color: #0a0a0a !important;
+  border-top: 2px solid #ffff00 !important;
+  color: #ffff00 !important;
+}
+
+body.high-contrast .vk-key {
+  background-color: #000000 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+body.high-contrast .vk-key:hover {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
+}

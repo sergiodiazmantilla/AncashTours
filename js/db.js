@@ -1,33 +1,43 @@
-// Inicializar datos desde data/base-datos.json si aún no están en localStorage
 async function inicializarBaseDatos() {
-  if (!localStorage.getItem('db_operadores') || !localStorage.getItem('listaReservas')) {
+  if (!localStorage.getItem('db_operadores') || !localStorage.getItem('db_tours') || !localStorage.getItem('listaReservas')) {
     try {
       const resp = await fetch('data/base-datos.json');
       const data = await resp.json();
       localStorage.setItem('db_operadores', JSON.stringify(data.operadores));
+      localStorage.setItem('db_tours', JSON.stringify(data.tours));
       localStorage.setItem('listaReservas', JSON.stringify(data.reservasIniciales));
     } catch (error) {
-      // Respaldo automático si se abre sin Live Server
-      const respaldoOps = [
-        { id: 'OP-01', nombre: 'Sergio Díaz', correo: 'operador_sd@ancashcosta.pe', password: '123', credencial: 'MAT-CHM-0412' },
-        { id: 'OP-02', nombre: 'Julio Rosario Montero', correo: 'julio.rosario@ancashcosta.pe', password: '123', credencial: 'MAT-CHM-0891' }
-      ];
-      localStorage.setItem('db_operadores', JSON.stringify(respaldoOps));
+      console.error('Abre el proyecto con Live Server para cargar data/base-datos.json', error);
     }
   }
 }
 inicializarBaseDatos();
 
-// Validar inicio de sesión de Operador contra el JSON cargado
+// --- GESTIÓN DE TOURS ---
+function obtenerTodosLosTours() {
+  return JSON.parse(localStorage.getItem('db_tours')) || [];
+}
+
+function obtenerTourPorId(id) {
+  const tours = obtenerTodosLosTours();
+  return tours.find(t => t.id === id) || tours[0];
+}
+
+function obtenerToursDelOperadorActivo() {
+  const op = obtenerOperadorActivo();
+  if (!op) return [];
+  return obtenerTodosLosTours().filter(t => t.operadorId === op.id);
+}
+
+// --- AUTENTICACIÓN DE OPERADORES ---
 async function iniciarSesionOperador(correo, password) {
   await inicializarBaseDatos();
   const operadores = JSON.parse(localStorage.getItem('db_operadores')) || [];
   const op = operadores.find(
     o => o.correo.toLowerCase() === correo.trim().toLowerCase() && o.password === password
   );
-
   if (!op) {
-    return { ok: false, mensaje: 'Credenciales inválidas. Solo operadores autorizados por la empresa.' };
+    return { ok: false, mensaje: 'Credenciales inválidas. Solo operadores autorizados.' };
   }
   sessionStorage.setItem('operadorActivo', JSON.stringify(op));
   return { ok: true, operador: op };
@@ -49,18 +59,29 @@ function protegerRutaOperador() {
   }
 }
 
-// Guardar reserva realizada por el turista
+// --- RESERVAS VINCULADAS AL TOUR Y AL OPERADOR ---
 function guardarReservaTurista(reserva) {
-  localStorage.setItem('ultimaReserva', JSON.stringify(reserva));
-  const lista = obtenerTodasLasReservas();
-  lista.unshift({
+  const tour = obtenerTourPorId(reserva.tourId);
+  const pasajerosNum = parseInt(reserva.pasajeros) || 1;
+  const montoFinal = reserva.montoTotal ? parseFloat(reserva.montoTotal) : (tour.precio * pasajerosNum);
+
+  const nuevaReserva = {
     id: 'ACP-' + Math.floor(Math.random() * 900 + 100),
+    tourId: tour.id,
+    operadorId: tour.operadorId,
     titular: reserva.titular,
-    experiencia: reserva.tour || 'Chankillo, Solar',
+    experiencia: tour.titulo,
     fecha: reserva.fecha,
-    pasajeros: parseInt(reserva.pasajeros),
+    pasajeros: pasajerosNum,
+    monto: montoFinal,
+    metodoPago: reserva.metodoPago || 'Yape / Plin',
+    puntoEncuentro: tour.puntoEncuentro,
     estado: 'Reservado'
-  });
+  };
+
+  localStorage.setItem('ultimaReserva', JSON.stringify(nuevaReserva));
+  const lista = obtenerTodasLasReservas();
+  lista.unshift(nuevaReserva);
   localStorage.setItem('listaReservas', JSON.stringify(lista));
 }
 
@@ -68,16 +89,36 @@ function obtenerTodasLasReservas() {
   return JSON.parse(localStorage.getItem('listaReservas')) || [];
 }
 
-// Eliminar un registro específico de la tabla de pasajeros (por índice)
-function eliminarReservaPorIndice(index) {
-  const lista = obtenerTodasLasReservas();
-  lista.splice(index, 1);
+// Devuelve SOLO las reservas que pertenecen a los tours del operador logueado
+function obtenerReservasDelOperadorActivo() {
+  const op = obtenerOperadorActivo();
+  if (!op) return [];
+  return obtenerTodasLasReservas().filter(r => r.operadorId === op.id);
+}
+
+function eliminarReservaPorId(idReserva) {
+  const lista = obtenerTodasLasReservas().filter(r => r.id !== idReserva);
   localStorage.setItem('listaReservas', JSON.stringify(lista));
 }
 
-// Restaurar la base de datos al estado limpio del JSON (ideal antes de exponer)
+// Descargar archivo base-datos.json actualizado (para reemplazarlo en VS Code si deseas)
+function descargarBaseDatosJSON() {
+  const estadoActual = {
+    operadores: JSON.parse(localStorage.getItem('db_operadores')) || [],
+    tours: obtenerTodosLosTours(),
+    reservasIniciales: obtenerTodasLasReservas()
+  };
+  const blob = new Blob([JSON.stringify(estadoActual, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'base-datos.json';
+  a.click();
+}
+
 async function restaurarDatosFabrica() {
   localStorage.removeItem('db_operadores');
+  localStorage.removeItem('db_tours');
   localStorage.removeItem('listaReservas');
   localStorage.removeItem('ultimaReserva');
   await inicializarBaseDatos();

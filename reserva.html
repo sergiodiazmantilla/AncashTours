@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <!-- Barra Superior Unificada -->
+  <!-- Barra Superior del Turista -->
   <header class="navbar navbar-expand-lg bg-white border-bottom sticky-top px-4 py-2">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="index.html">
@@ -22,7 +22,6 @@
         </div>
       </a>
 
-      <!-- Las 3 opciones exactas del prototipo Figma para el Turista -->
       <nav aria-label="Navegación del turista" class="d-flex gap-4 my-2 my-lg-0">
         <a href="index.html" class="nav-link fw-semibold">Explorar</a>
         <a href="tours.html" class="nav-link fw-semibold">Tours</a>
@@ -30,7 +29,6 @@
       </nav>
 
       <div class="d-flex align-items-center gap-3">
-        <!-- Controles de Accesibilidad (RF-11) -->
         <div class="d-flex align-items-center gap-2" role="region" aria-label="Herramientas de accesibilidad">
           <div class="form-check form-switch mb-0">
             <input class="form-check-input" type="checkbox" id="contrastToggle">
@@ -40,174 +38,330 @@
           <button id="fontIncrease" class="btn btn-outline-secondary btn-sm">A+</button>
         </div>
 
-        <!-- Acceso discreto para operadores (sin mezclar dashboards) -->
+        <!-- Acceso para operadores
         <a href="login-operador.html" class="btn btn-outline-primary btn-sm border-start ps-3">
           <i class="bi bi-briefcase me-1"></i> Zona de operadores
-        </a>
+        </a>-->
       </div>
     </div>
   </header>
 
   <main class="container py-4">
-    <!-- Stepper de 3 pasos (Fiel a Figma) -->
-    <div class="d-flex align-items-center gap-3 mb-4 small fw-semibold">
+    <!-- Stepper Paso 2 activo -->
+    <div class="d-flex flex-wrap align-items-center gap-3 mb-4 small fw-semibold">
       <span class="text-success"><span class="step-badge bg-success text-white me-1">✓</span> Elige tu experiencia</span>
+      <span class="text-success">———</span>
+      <span class="text-brand"><span class="step-badge btn-brand me-1">2</span> Datos de reserva</span>
       <span class="text-muted">———</span>
-      <span class="text-brand"><span class="step-badge btn-brand me-1">2</span> Datos de reserva y pago</span>
-      <span class="text-muted">———</span>
-      <span class="text-muted"><span class="step-badge bg-secondary-subtle text-dark me-1">3</span> Tu ticket QR</span>
+      <span class="text-muted"><span class="step-badge bg-light text-muted border me-1">3</span> Tu ticket QR</span>
     </div>
 
     <span class="text-uppercase small fw-bold text-brand">Tu viaje empieza aquí</span>
     <h1 class="h2 fw-bold mb-1">Completa tu reserva</h1>
-    <p class="text-muted mb-4">Revisa los datos del titular y selecciona tu método de pago respaldado.</p>
+    <p class="text-muted small mb-4">
+      Revisa los datos del titular y los detalles de tu experiencia en <strong id="subtituloTourNombre">...</strong>.
+    </p>
 
     <div class="row g-4">
-      <!-- Formulario Transaccional -->
+      <!-- Columna Izquierda: Formulario de Reserva + Pasarela de Pago -->
       <div class="col-lg-8">
-        <form id="formReserva" class="card border-0 shadow-sm rounded-4 p-4">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="h5 fw-bold mb-0">Datos del titular</h2>
-            <span class="small text-muted">* Campos obligatorios</span>
-          </div>
+        <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+          <form id="formReserva">
+            <!-- SECCIÓN 1: Datos del Titular -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 class="h5 fw-bold mb-0">1. Datos del titular</h2>
+              <span class="small text-muted">* Campos obligatorios</span>
+            </div>
 
-          <div class="row g-3 mb-4">
-            <div class="col-md-6">
-              <label for="titularNombre" class="form-label small fw-semibold">Nombre completo *</label>
-              <input type="text" id="titularNombre" class="form-control" required>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label for="nombreTurista" class="form-label small fw-semibold">Nombre completo *</label>
+                <input type="text" id="nombreTurista" class="form-control" placeholder="Ej. Nicolás Poma" required>
+              </div>
+              <div class="col-md-6">
+                <label for="dniTurista" class="form-label small fw-semibold">Documento de identidad (DNI / Pasaporte) *</label>
+                <input type="text" id="dniTurista" class="form-control" placeholder="Ej. 74859612" required>
+              </div>
+              <div class="col-md-6">
+                <label for="correoTurista" class="form-label small fw-semibold">Correo electrónico *</label>
+                <input type="email" id="correoTurista" class="form-control" placeholder="viajero@correo.com" required>
+              </div>
+              <div class="col-md-6">
+                <label for="telefonoTurista" class="form-label small fw-semibold">Teléfono de contacto *</label>
+                <input type="tel" id="telefonoTurista" class="form-control" placeholder="+51 999 000 000" required>
+              </div>
+              <div class="col-md-6">
+                <label for="fechaVisita" class="form-label small fw-semibold">Fecha de la visita *</label>
+                <input type="date" id="fechaVisita" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label for="numPasajeros" class="form-label small fw-semibold">Número de pasajeros *</label>
+                <select id="numPasajeros" class="form-select">
+                  <option value="1" selected>1 pasajero</option>
+                  <option value="2">2 pasajeros</option>
+                  <option value="3">3 pasajeros</option>
+                  <option value="4">4 pasajeros</option>
+                  <option value="5">5 pasajeros</option>
+                </select>
+              </div>
             </div>
-            <div class="col-md-6">
-              <label for="titularDni" class="form-label small fw-semibold">Documento de identidad (DNI / Pasaporte) *</label>
-              <input type="text" id="titularDni" class="form-control"  required>
-            </div>
-            <div class="col-md-6">
-              <label for="titularCorreo" class="form-label small fw-semibold">Correo electrónico *</label>
-              <input type="email" id="titularCorreo" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-              <label for="titularTelefono" class="form-label small fw-semibold">Teléfono de contacto *</label>
-              <input type="tel" id="titularTelefono" class="form-control"  required>
-            </div>
-            <div class="col-md-6">
-              <label for="fechaVisita" class="form-label small fw-semibold">Fecha de la visita *</label>
-              <input type="date" id="fechaVisita" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-              <label for="numPasajeros" class="form-label small fw-semibold">Número de pasajeros (Máx. 15) *</label>
-              <select id="numPasajeros" class="form-select">
-                <option value="1">1 persona</option>
-                <option value="2" selected>2 personas</option>
-                <option value="3">3 personas</option>
-                <option value="4">4 personas</option>
-                <option value="5">5 personas</option>
-              </select>
-            </div>
-          </div>
 
-          <!-- Ajuste Post-User Testing: Pasarela de Pago Segura -->
-          <h2 class="h5 fw-bold mb-3 pt-3 border-top">
-            <i class="bi bi-shield-lock-fill text-success me-1"></i> Método de Pago Oficial
-          </h2>
-          <div class="row g-3 mb-4">
-            <div class="col-md-6">
-              <label class="card p-3 border-2 border-primary rounded-3 cursor-pointer">
-                <div class="form-check mb-0">
-                  <input class="form-check-input" type="radio" name="metodoPago" id="pagoTarjeta" checked>
-                  <label class="form-check-label fw-bold" for="pagoTarjeta">
-                    Tarjeta Crédito / Débito (Niubiz)
-                  </label>
-                  <span class="d-block small text-muted">Visa, Mastercard, American Express</span>
+            <hr class="my-4">
+
+            <!-- SECCIÓN 2: Pasarela de Pago Oficial (HU #4) -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+              <h2 class="h5 fw-bold mb-0">2. Pago seguro en línea</h2>
+              <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                <i class="bi bi-shield-lock-fill me-1"></i> Transacción cifrada SSL
+              </span>
+            </div>
+
+            <!-- Selector visual de Método de Pago -->
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <input type="radio" class="btn-check" name="radioMetodoPago" id="pagoBilletera" value="Yape / Plin" checked>
+                <label class="btn btn-outline-primary w-100 py-2 fw-semibold" for="pagoBilletera">
+                  <i class="bi bi-qr-code me-1"></i> Billetera Digital (Yape / Plin)
+                </label>
+              </div>
+              <div class="col-6">
+                <input type="radio" class="btn-check" name="radioMetodoPago" id="pagoTarjeta" value="Tarjeta Crédito / Débito">
+                <label class="btn btn-outline-primary w-100 py-2 fw-semibold" for="pagoTarjeta">
+                  <i class="bi bi-credit-card me-1"></i> Tarjeta Crédito / Débito
+                </label>
+              </div>
+            </div>
+
+            <!-- BLOQUE A: Campos para Billetera Virtual (Yape / Plin) -->
+            <div id="bloqueYapePlin" class="bg-light p-3 rounded-4 border mb-3">
+              <div class="row align-items-center g-3">
+                <div class="col-sm-4 text-center">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=YAPE-ANCASHCOSTA-PASS" alt="QR de pago Yape y Plin" class="img-fluid bg-white p-2 rounded-3 border">
+                  <small class="d-block text-muted mt-1" style="font-size: 0.72rem;">Escanea con Yape o Plin</small>
                 </div>
+                <div class="col-sm-8">
+                  <p class="small mb-2">
+                    <strong>1.</strong> Yapea o Plinea el monto total (<strong id="montoYapeTexto">S/ 0.00</strong>) al número oficial <strong>943 812 500</strong> (ÁncashCosta Pass SAC).<br>
+                    <strong>2.</strong> Ingresa el código de aprobación de tu constancia:
+                  </p>
+                  <div class="row g-2">
+                    <div class="col-6">
+                      <label for="celularYape" class="form-label small fw-semibold mb-1">Tu celular Yape/Plin *</label>
+                      <input type="tel" id="celularYape" class="form-control form-control-sm" placeholder="999 888 777" maxlength="9" required>
+                    </div>
+                    <div class="col-6">
+                      <label for="codigoAprobacion" class="form-label small fw-semibold mb-1">Código de aprobación *</label>
+                      <input type="text" id="codigoAprobacion" class="form-control form-control-sm" placeholder="Ej. 482910" maxlength="6" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BLOQUE B: Campos para Tarjeta de Crédito / Débito -->
+            <div id="bloqueTarjeta" class="bg-light p-3 rounded-4 border mb-3 d-none">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="small fw-semibold">Pasarela oficial Niubiz / Culqi</span>
+                <span class="small text-muted"><i class="bi bi-credit-card-2-front me-1"></i> Visa • Mastercard</span>
+              </div>
+              <div class="row g-2">
+                <div class="col-12">
+                  <label for="numTarjeta" class="form-label small fw-semibold mb-1">Número de tarjeta *</label>
+                  <input type="text" id="numTarjeta" class="form-control form-control-sm" placeholder="4557 •••• •••• 8912" maxlength="19">
+                </div>
+                <div class="col-6">
+                  <label for="fechaTarjeta" class="form-label small fw-semibold mb-1">Vencimiento (MM/AA) *</label>
+                  <input type="text" id="fechaTarjeta" class="form-control form-control-sm" placeholder="09/28" maxlength="5">
+                </div>
+                <div class="col-6">
+                  <label for="cvvTarjeta" class="form-label small fw-semibold mb-1">Código CVV *</label>
+                  <input type="password" id="cvvTarjeta" class="form-control form-control-sm" placeholder="123" maxlength="4">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-check my-3">
+              <input class="form-check-input" type="checkbox" id="aceptoCondiciones" checked required>
+              <label class="form-check-label small text-muted" for="aceptoCondiciones">
+                He revisado los datos y autorizo el cobro seguro para emitir mi Ticket QR oficial.
               </label>
             </div>
-            <div class="col-md-6">
-              <label class="card p-3 border rounded-3 cursor-pointer">
-                <div class="form-check mb-0">
-                  <input class="form-check-input" type="radio" name="metodoPago" id="pagoYape">
-                  <label class="form-check-label fw-bold" for="pagoYape">
-                    Billetera Digital (Yape / Plin)
-                  </label>
-                  <span class="d-block small text-muted">Confirmación instantánea con QR</span>
-                </div>
-              </label>
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center pt-3 border-top gap-3">
+              <a href="tours.html" id="btnVolverTour" class="text-decoration-none text-muted small fw-semibold">
+                ← Volver al tour
+              </a>
+              <button type="submit" class="btn btn-brand px-4 py-3 fw-bold rounded-3">
+                <i class="bi bi-lock-fill me-1"></i> Pagar y Confirmar Reserva
+              </button>
             </div>
-          </div>
-
-          <div class="form-check mb-4">
-            <input class="form-check-input" type="checkbox" id="checkTerminos" checked required>
-            <label class="form-check-label small" for="checkTerminos">
-              He revisado los datos y las políticas de cancelación por fuerza mayor (RN-09).
-            </label>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center">
-            <a href="detalle-tour.html" class="text-decoration-none text-muted small">← Volver al tour</a>
-            <button type="submit" class="btn btn-brand px-4 py-3 fw-bold rounded-3">
-              Confirmar y generar Ticket QR <i class="bi bi-arrow-right ms-1"></i>
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
 
-      <!-- Resumen Lateral Dinámico -->
+      <!-- Columna Derecha: Resumen Dinámico del Tour Seleccionado -->
       <div class="col-lg-4">
-        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80" style="height: 150px; object-fit: cover;" alt="Observatorio Solar Chankillo">
-          <div class="p-4">
-            <span class="text-uppercase small fw-bold text-brand">Casma • Cultura</span>
-            <h3 class="h5 fw-bold mt-1">Observatorio Solar Chankillo</h3>
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white sticky-top" style="top: 85px;">
+          <img id="resumenImagen" src="" alt="Imagen de la experiencia" class="w-100 rounded-3 mb-3" style="height: 165px; object-fit: cover;">
 
-            <hr>
+          <span class="small fw-bold text-uppercase text-brand" id="resumenCategoria">--</span>
+          <h3 class="h5 fw-bold mt-1 mb-3" id="resumenTitulo">Cargando experiencia...</h3>
 
-            <div class="d-flex justify-content-between small mb-2">
+          <ul class="list-unstyled small d-flex flex-column gap-2 mb-3">
+            <li class="d-flex justify-content-between">
+              <span class="text-muted">Tarifa por persona</span>
+              <strong id="resumenPrecioUnitario">S/ 0.00</strong>
+            </li>
+            <li class="d-flex justify-content-between">
               <span class="text-muted">Fecha seleccionada</span>
-              <strong id="resumenFecha">22/11/2026</strong>
-            </div>
-            <div class="d-flex justify-content-between small mb-2">
+              <strong id="resumenFecha">--</strong>
+            </li>
+            <li class="d-flex justify-content-between">
               <span class="text-muted">Pasajeros</span>
-              <strong id="resumenPasajeros">2 personas</strong>
-            </div>
-            <div class="d-flex justify-content-between small mb-3">
-              <span class="text-muted">Tarifa unitaria</span>
-              <strong>S/ 35.00</strong>
-            </div>
+              <strong id="resumenPasajeros">1 persona</strong>
+            </li>
+            <li class="d-flex justify-content-between">
+              <span class="text-muted">Duración propuesta</span>
+              <strong id="resumenDuracion">--</strong>
+            </li>
+          </ul>
 
-            <div class="d-flex justify-content-between align-items-center pt-3 border-top">
-              <span class="fw-bold">Total a pagar</span>
-              <span class="h4 fw-bold text-brand mb-0" id="resumenTotal">S/ 70.00</span>
-            </div>
+          <hr>
+
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="fw-bold">Total a pagar</span>
+            <span class="fs-4 fw-bold text-brand" id="resumenTotal">S/ 0.00</span>
+          </div>
+
+          <div class="bg-light p-3 rounded-3 small text-muted mt-3">
+            <i class="bi bi-info-circle text-primary me-1"></i>
+            <strong>Punto de encuentro:</strong>
+            <span class="d-block mt-1" id="resumenEncuentro">--</span>
           </div>
         </div>
       </div>
     </div>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/accessibility.js"></script>
   <script src="js/db.js"></script>
   <script>
-    // Cálculo dinámico en tiempo real (HU #3) y guardado en localStorage para el Ticket
-    const selectPasajeros = document.getElementById('numPasajeros');
-    const resumenPasajeros = document.getElementById('resumenPasajeros');
-    const resumenTotal = document.getElementById('resumenTotal');
-    const precioUnitario = 35;
+    let tourSeleccionado = null;
+    let totalCalculado = 0;
 
-    selectPasajeros.addEventListener('change', () => {
-      const n = parseInt(selectPasajeros.value);
-      resumenPasajeros.textContent = `${n} ${n === 1 ? 'persona' : 'personas'}`;
-      resumenTotal.textContent = `S/ ${(n * precioUnitario).toFixed(2)}`;
+    // Función que multiplica el precio unitario por la cantidad de pasajeros
+    function recalcularTotal() {
+      if (!tourSeleccionado) return;
+      const cant = parseInt(document.getElementById('numPasajeros').value) || 1;
+      totalCalculado = tourSeleccionado.precio * cant;
+
+      document.getElementById('resumenPasajeros').textContent = `${cant} ${cant === 1 ? 'persona' : 'personas'}`;
+      document.getElementById('resumenTotal').textContent = `S/ ${totalCalculado}.00`;
+      document.getElementById('montoYapeTexto').textContent = `S/ ${totalCalculado}.00`;
+    }
+
+    // Alternar campos según método de pago (Yape/Plin vs Tarjeta)
+    function alternarMetodoPago() {
+      const esBilletera = document.getElementById('pagoBilletera').checked;
+      const bloqueYape = document.getElementById('bloqueYapePlin');
+      const bloqueTarjeta = document.getElementById('bloqueTarjeta');
+
+      if (esBilletera) {
+        bloqueYape.classList.remove('d-none');
+        bloqueTarjeta.classList.add('d-none');
+        document.getElementById('celularYape').required = true;
+        document.getElementById('codigoAprobacion').required = true;
+        document.getElementById('numTarjeta').required = false;
+        document.getElementById('fechaTarjeta').required = false;
+        document.getElementById('cvvTarjeta').required = false;
+      } else {
+        bloqueYape.classList.add('d-none');
+        bloqueTarjeta.classList.remove('d-none');
+        document.getElementById('celularYape').required = false;
+        document.getElementById('codigoAprobacion').required = false;
+        document.getElementById('numTarjeta').required = true;
+        document.getElementById('fechaTarjeta').required = true;
+        document.getElementById('cvvTarjeta').required = true;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await inicializarBaseDatos();
+
+      const params = new URLSearchParams(window.location.search);
+      const idTour = params.get('id') || 'TOUR-01';
+      tourSeleccionado = obtenerTourPorId(idTour);
+
+      // Fecha por defecto (mañana)
+      const manana = new Date();
+      manana.setDate(manana.getDate() + 1);
+      const fechaISO = manana.toISOString().split('T')[0];
+      const inputFecha = document.getElementById('fechaVisita');
+      inputFecha.value = fechaISO;
+      document.getElementById('resumenFecha').textContent = fechaISO;
+
+      if (tourSeleccionado) {
+        document.getElementById('subtituloTourNombre').textContent = tourSeleccionado.titulo;
+        document.getElementById('resumenTitulo').textContent = tourSeleccionado.titulo;
+        document.getElementById('resumenCategoria').textContent = `${tourSeleccionado.destino} • ${tourSeleccionado.categoria}`;
+        document.getElementById('resumenPrecioUnitario').textContent = `S/ ${tourSeleccionado.precio}.00`;
+        document.getElementById('resumenDuracion').textContent = tourSeleccionado.duracion;
+        document.getElementById('resumenEncuentro').textContent = tourSeleccionado.puntoEncuentro;
+        document.getElementById('resumenImagen').src = tourSeleccionado.imagen;
+        document.getElementById('btnVolverTour').href = `detalle-tour.html?id=${tourSeleccionado.id}`;
+        recalcularTotal();
+      }
+
+      inputFecha.addEventListener('change', (e) => {
+        document.getElementById('resumenFecha').textContent = e.target.value;
+      });
+
+      document.getElementById('numPasajeros').addEventListener('change', recalcularTotal);
+      document.getElementById('pagoBilletera').addEventListener('change', alternarMetodoPago);
+      document.getElementById('pagoTarjeta').addEventListener('change', alternarMetodoPago);
     });
 
-    document.getElementById('formReserva').addEventListener('submit', (e) => {
+    document.getElementById('formReserva').addEventListener('submit', function(e) {
       e.preventDefault();
-      const datos = {
-        titular: document.getElementById('titularNombre').value,
+      formularioEnProgreso = false; // Desactiva la alerta porque el pago sí se completó
+      const metodoSeleccionado = document.querySelector('input[name="radioMetodoPago"]:checked').value;
+
+      guardarReservaTurista({
+        tourId: tourSeleccionado ? tourSeleccionado.id : 'TOUR-01',
+        titular: document.getElementById('nombreTurista').value,
         fecha: document.getElementById('fechaVisita').value,
-        pasajeros: selectPasajeros.value,
-        total: (parseInt(selectPasajeros.value) * precioUnitario).toFixed(2)
-      };
-      localStorage.setItem('ultimaReserva', JSON.stringify(datos));
-      guardarReservaTurista(datos)
+        pasajeros: document.getElementById('numPasajeros').value,
+        montoTotal: totalCalculado,
+        metodoPago: metodoSeleccionado
+      });
+
       window.location.href = 'ticket.html';
+    });
+
+    // --- CONFIRMACIÓN AL INTENTAR SALIR DEL PROCESO DE PAGO ---
+    let formularioEnProgreso = true;
+
+    // 1. Alerta nativa si intenta cerrar pestaña, recargar o usar botón Atrás del navegador
+    window.addEventListener('beforeunload', function (e) {
+      if (formularioEnProgreso) {
+        e.preventDefault();
+        e.returnValue = ''; // Requerido por Chrome/Edge para mostrar el cuadro de diálogo
+      }
+    });
+
+    // 2. Confirmación personalizada al hacer clic en enlaces de la cabecera o "Volver al tour"
+    document.querySelectorAll('a[href]').forEach(enlace => {
+      enlace.addEventListener('click', function (e) {
+        if (formularioEnProgreso) {
+          const confirmarSalida = confirm('¿Estás seguro de que quieres salir del proceso de pago? Los datos ingresados se perderán.');
+          if (!confirmarSalida) {
+            e.preventDefault();
+          } else {
+            formularioEnProgreso = false;
+          }
+        }
+      });
     });
   </script>
 </body>

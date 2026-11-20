@@ -41,7 +41,7 @@
 
   <div class="container-fluid">
     <div class="row min-vh-100">
-      <!-- Barra Lateral (Fiel al Módulo 7 de Figma) -->
+      <!-- Barra Lateral -->
       <aside class="col-md-3 col-lg-2 bg-white border-end p-3 d-flex flex-column justify-content-between">
         <div>
           <span class="small text-uppercase text-muted fw-bold px-2">Espacio Local</span>
@@ -78,7 +78,7 @@
           <span class="badge bg-warning-subtle text-dark px-3 py-2">15 de septiembre de 2026</span>
         </div>
 
-        <!-- 3 KPIs de Figma -->
+        <!-- 3 KPIs -->
         <div class="row g-3 mb-4">
           <div class="col-md-4">
             <div class="card p-3 border-0 shadow-sm rounded-4">
@@ -145,6 +145,10 @@
             Ver lista de pasajeros →
           </a>
         </div>
+        <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
+          <h3 class="h6 fw-bold mb-3">Mis experiencias asignadas (3 rutas a cargo)</h3>
+          <div class="row g-3" id="misExperienciasOperador"></div>
+        </div>
       </main>
     </div>
   </div>
@@ -152,5 +156,37 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="js/accessibility.js"></script>
   <script src="js/charts-operador.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const op = obtenerOperadorActivo();
+      const misTours = obtenerToursDelOperadorActivo();
+      const misReservas = obtenerReservasDelOperadorActivo();
+
+      // Actualizar nombre del operador en cabecera
+      if (document.getElementById('nombreOperadorHeader')) {
+        document.getElementById('nombreOperadorHeader').textContent = op.nombre;
+      }
+
+      // Calcular KPIs reales solo de este operador
+      const totalIngresos = misReservas.reduce((acc, r) => acc + (r.monto || 0), 0);
+      if (document.getElementById('kpiTotalReservas')) document.getElementById('kpiTotalReservas').textContent = misReservas.length;
+      if (document.getElementById('kpiIngresos')) document.getElementById('kpiIngresos').textContent = `S/ ${totalIngresos}.00`;
+
+      // Renderizar sus 3 tours a cargo
+      const contTours = document.getElementById('misExperienciasOperador');
+      if (contTours) {
+        contTours.innerHTML = misTours.map(t => `
+          <div class="col-md-4">
+            <div class="border rounded-3 p-3 h-100">
+              <span class="badge bg-primary-subtle text-primary mb-1">${t.destino}</span>
+              <h4 class="h6 fw-bold mb-1">${t.titulo}</h4>
+              <small class="text-muted d-block">Tarifa: S/ ${t.precio}.00 • Aforo máx: ${t.aforo}</small>
+            </div>
+          </div>
+        `).join('');
+      }
+    });
+  </script>
 </body>
 </html>

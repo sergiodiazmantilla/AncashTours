@@ -35,6 +35,14 @@
   </header>
 
   <div class="container-fluid">
+    <div class="d-flex gap-2">
+      <button onclick="descargarBaseDatosJSON()" class="btn btn-outline-primary btn-sm">
+        <i class="bi bi-download me-1"></i> Descargar JSON actualizado
+      </button>
+      <button onclick="if(confirm('¿Restaurar datos originales?')) restaurarDatosFabrica();" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-counterclockwise me-1"></i> Restaurar datos
+      </button>
+    </div>
     <div class="row min-vh-100">
       <aside class="col-md-3 col-lg-2 bg-white border-end p-3 d-flex flex-column justify-content-between">
         <div>
@@ -94,7 +102,7 @@
   <script>
     function renderizarTablaPasajeros() {
         const tbody = document.getElementById('tablaPasajerosBody');
-        const reservas = obtenerTodasLasReservas();
+        const reservas = obtenerReservasDelOperadorActivo();
         tbody.innerHTML = '';
 
         if (reservas.length === 0) {

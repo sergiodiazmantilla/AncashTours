@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Barra Superior Unificada -->
+  <!-- Barra Superior del Turista -->
   <header class="navbar navbar-expand-lg bg-white border-bottom sticky-top px-4 py-2">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="index.html">
@@ -22,7 +22,7 @@
         </div>
       </a>
 
-      <!-- Las 3 opciones exactas del prototipo Figma para el Turista -->
+      <!-- 3 opciones para el Turista -->
       <nav aria-label="Navegación del turista" class="d-flex gap-4 my-2 my-lg-0">
         <a href="index.html" class="nav-link fw-semibold">Explorar</a>
         <a href="tours.html" class="nav-link fw-semibold">Tours</a>
@@ -39,28 +39,28 @@
           <button id="fontDecrease" class="btn btn-outline-secondary btn-sm">A-</button>
           <button id="fontIncrease" class="btn btn-outline-secondary btn-sm">A+</button>
         </div>
-
-        <!-- Acceso discreto para operadores (sin mezclar dashboards) -->
+        <!-- Acceso para operadores
         <a href="login-operador.html" class="btn btn-outline-primary btn-sm border-start ps-3">
           <i class="bi bi-briefcase me-1"></i> Zona de operadores
         </a>
+        -->
       </div>
     </div>
   </header>
 
   <main class="container py-4">
-    <!-- Breadcrumb -->
+    <!-- Breadcrumb dinámico -->
     <nav aria-label="Ruta de navegación" class="small mb-2">
       <a href="index.html" class="text-decoration-none text-muted">Explorar</a> /
-      <a href="tours.html" class="text-decoration-none text-muted">Tours en Casma</a> /
-      <span class="fw-semibold text-dark">Observatorio Solar Chankillo</span>
+      <a href="tours.html" class="text-decoration-none text-muted" id="breadcrumbDestino">Tours</a> /
+      <span class="fw-semibold text-dark" id="breadcrumbTitulo">Cargando...</span>
     </nav>
 
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
       <div>
-        <span class="text-uppercase small fw-bold text-brand">Casma • Patrimonio y Cultura</span>
-        <h1 class="h2 fw-bold mb-0">Observatorio Solar Chankillo</h1>
-        <p class="text-muted mb-0">Un encuentro con el tiempo, la luz y el paisaje del desierto (Patrimonio Mundial UNESCO 2021).</p>
+        <span class="text-uppercase small fw-bold text-brand" id="detalleCategoria">--</span>
+        <h1 class="h2 fw-bold mb-0" id="detalleTitulo">Cargando experiencia...</h1>
+        <p class="text-muted mb-0" id="detalleSubtitulo">--</p>
       </div>
       <span class="badge bg-success-subtle text-success px-3 py-2">
         <i class="bi bi-patch-check-fill me-1"></i> Operador Verificado DIRCETUR
@@ -71,31 +71,29 @@
       <!-- Columna Izquierda: Foto + Itinerario + Seguridad -->
       <div class="col-lg-8">
         <div class="position-relative rounded-4 overflow-hidden shadow-sm mb-4">
-          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80" class="w-100" style="max-height: 380px; object-fit: cover;" alt="Vista panorámica de las Trece Torres de Chankillo">
+          <img id="detalleImagen" src="" class="w-100" style="max-height: 380px; object-fit: cover;" alt="Imagen del atractivo turístico">
           <span class="badge bg-white text-dark position-absolute bottom-0 start-0 m-3 px-3 py-2 shadow-sm">
-            <i class="bi bi-geo-alt-fill text-primary me-1"></i> Valle de Casma, Áncash
+            <i class="bi bi-geo-alt-fill text-primary me-1"></i> <span id="detalleUbicacion">Áncash, Perú</span>
           </span>
         </div>
 
-        <h2 class="h4 fw-bold">Donde el sol cuenta la historia</h2>
-        <p class="text-muted">
-          Descubre las trece torres de Chankillo y su relación milenaria con el recorrido del sol. Una visita guiada para observar el paisaje desértico, conocer el patrimonio arqueológico y recorrer el centro ceremonial con un guía local acreditado.
-        </p>
+        <h2 class="h4 fw-bold">Sobre esta experiencia</h2>
+        <p class="text-muted" id="detalleDescripcion">Cargando descripción...</p>
 
-        <!-- Itinerario en 3 pasos (Fiel a Figma) -->
+        <!-- Itinerario en 3 pasos -->
         <div class="row g-3 my-3">
           <div class="col-md-4">
             <div class="card p-3 border rounded-3 h-100 bg-white">
               <span class="small fw-bold text-brand">01 / ITINERARIO</span>
               <h3 class="h6 fw-bold mt-1 mb-1">Encuentro</h3>
-              <p class="small text-muted mb-0">Bienvenida y registro QR en la Plaza de Armas de Casma.</p>
+              <p class="small text-muted mb-0" id="detalleItinerarioEncuentro">Bienvenida y validación de Ticket QR en el punto de encuentro.</p>
             </div>
           </div>
           <div class="col-md-4">
             <div class="card p-3 border rounded-3 h-100 bg-white">
               <span class="small fw-bold text-brand">02 / ITINERARIO</span>
               <h3 class="h6 fw-bold mt-1 mb-1">Recorrido</h3>
-              <p class="small text-muted mb-0">Visita guiada a las Trece Torres y mirador solar.</p>
+              <p class="small text-muted mb-0">Visita guiada completa con operador local acreditado.</p>
             </div>
           </div>
           <div class="col-md-4">
@@ -112,7 +110,7 @@
           <i class="bi bi-exclamation-triangle-fill fs-4 text-warning"></i>
           <div class="small">
             <strong>Medidas de Seguridad y Equipamiento (RN-08):</strong>
-            Lleva al menos 1.5 L de agua, sombrero de ala ancha, bloqueador solar y calzado cómodo para arena. En paseos náuticos (Isla Blanca) el uso de chaleco salvavidas es 100% obligatorio.
+            Lleva agua, bloqueador solar y calzado cómodo. En paseos náuticos (Isla Blanca, Caleta Colorada) el uso de chaleco salvavidas es 100% obligatorio.
           </div>
         </div>
       </div>
@@ -122,8 +120,8 @@
         <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top: 85px;">
           <span class="small text-uppercase fw-bold text-muted">Tarifa Oficial (PEN)</span>
           <div class="d-flex align-items-baseline gap-2 my-1">
-            <span class="display-6 fw-bold text-dark">S/ 35.00</span>
-            <span class="text-muted small">/ por persona</span>
+            <span class="display-6 fw-bold text-dark" id="detallePrecio">S/ 0.00</span>
+            <span class="text-muted small">/ paquete referencial</span>
           </div>
 
           <hr>
@@ -131,15 +129,15 @@
           <ul class="list-unstyled d-flex flex-column gap-3 small mb-4">
             <li class="d-flex gap-2">
               <i class="bi bi-clock text-primary fs-5"></i>
-              <div><strong>Duración estimada:</strong><span class="d-block text-muted">4 horas</span></div>
+              <div><strong>Duración estimada:</strong><span class="d-block text-muted" id="detalleDuracion">--</span></div>
             </li>
             <li class="d-flex gap-2">
               <i class="bi bi-geo-alt text-primary fs-5"></i>
-              <div><strong>Punto de encuentro:</strong><span class="d-block text-muted">Plaza de Armas de Casma</span></div>
+              <div><strong>Punto de encuentro:</strong><span class="d-block text-muted" id="detalleEncuentro">--</span></div>
             </li>
             <li class="d-flex gap-2">
               <i class="bi bi-people text-primary fs-5"></i>
-              <div><strong>Incluye:</strong><span class="d-block text-muted">Transporte local, guía DIRCETUR y entradas</span></div>
+              <div><strong>Aforo máximo:</strong><span class="d-block text-muted" id="detalleAforo">--</span></div>
             </li>
           </ul>
 
@@ -148,12 +146,70 @@
             <strong>Anticipación mínima (RN-02):</strong> Las reservas digitales se realizan con al menos 12 horas de anticipación.
           </div>
 
-          <a href="reserva.html" class="btn btn-brand w-100 py-3 fw-bold rounded-3">Reservar esta experiencia</a>
+          <a href="reserva.html" id="btnIrAReserva" class="btn btn-brand w-100 py-3 fw-bold rounded-3">
+            → Reservar esta experiencia
+          </a>
         </div>
       </div>
     </div>
   </main>
 
   <script src="js/accessibility.js"></script>
+  <script src="js/db.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await inicializarBaseDatos();
+      const params = new URLSearchParams(window.location.search);
+      const idTour = params.get('id') || 'TOUR-01';
+      const tour = obtenerTourPorId(idTour);
+
+      if (tour) {
+        document.getElementById('breadcrumbDestino').textContent = `Tours en ${tour.destino}`;
+        document.getElementById('breadcrumbTitulo').textContent = tour.titulo;
+        document.getElementById('detalleCategoria').textContent = `${tour.destino} • ${tour.categoria}`;
+        document.getElementById('detalleTitulo').textContent = tour.titulo;
+        document.getElementById('detalleSubtitulo').textContent = tour.subtitulo;
+        document.getElementById('detalleUbicacion').textContent = `${tour.destino}, Áncash`;
+        document.getElementById('detalleDescripcion').textContent = tour.descripcion;
+        document.getElementById('detalleItinerarioEncuentro').textContent = `Bienvenida y validación QR en: ${tour.puntoEncuentro}.`;
+        document.getElementById('detallePrecio').textContent = `S/ ${tour.precio}.00`;
+        document.getElementById('detalleDuracion').textContent = tour.duracion;
+        document.getElementById('detalleEncuentro').textContent = tour.puntoEncuentro;
+        document.getElementById('detalleAforo').textContent = `Hasta ${tour.aforo} pasajeros por salida`;
+
+        const img = document.getElementById('detalleImagen');
+        img.src = tour.imagen;
+        img.alt = tour.titulo;
+
+        // Pasa el ID del tour seleccionado hacia reserva.html
+        document.getElementById('btnIrAReserva').href = `reserva.html?id=${tour.id}`;
+      }
+    });
+  </script>
+  <script>
+    // Cálculo dinámico en tiempo real (HU #3) y guardado en localStorage para el Ticket
+    const selectPasajeros = document.getElementById('numPasajeros');
+    const resumenPasajeros = document.getElementById('resumenPasajeros');
+    const resumenTotal = document.getElementById('resumenTotal');
+    const precioUnitario = 35;
+
+    selectPasajeros.addEventListener('change', () => {
+      const n = parseInt(selectPasajeros.value);
+      resumenPasajeros.textContent = `${n} ${n === 1 ? 'persona' : 'personas'}`;
+      resumenTotal.textContent = `S/ ${(n * precioUnitario).toFixed(2)}`;
+    });
+
+    document.getElementById('formReserva').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const datos = {
+        titular: document.getElementById('titularNombre').value,
+        fecha: document.getElementById('fechaVisita').value,
+        pasajeros: selectPasajeros.value,
+        total: (parseInt(selectPasajeros.value) * precioUnitario).toFixed(2)
+      };
+      localStorage.setItem('ultimaReserva', JSON.stringify(datos));
+      window.location.href = 'ticket.html';
+    });
+  </script>
 </body>
 </html>
