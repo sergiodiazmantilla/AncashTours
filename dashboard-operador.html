@@ -7,6 +7,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Librería CSS de dc.js (Requisito de Dashboard Analítico) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/4.2.4/dc.min.css">
   <link rel="stylesheet" href="css/accessibility.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -17,15 +20,15 @@
   <!-- Cabecera Exclusiva del Operador -->
   <header class="navbar bg-white border-bottom sticky-top px-4 py-2">
     <div class="container-fluid">
-      <span class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2">
+      <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="dashboard-operador.html">
         <i class="bi bi-water fs-3"></i>
         <div>
           ÁncashCosta Pass
           <small class="d-block text-muted" style="font-size: 0.7rem; letter-spacing: 1px;">ZONA DE OPERADORES</small>
         </div>
-      </span>
+      </a>
 
-      <div class="d-flex align-items-center gap-3">
+      <div class="d-flex flex-wrap align-items-center gap-3">
         <div class="form-check form-switch mb-0">
           <input class="form-check-input" type="checkbox" id="contrastToggle">
           <label class="form-check-label small" for="contrastToggle">Alto contraste</label>
@@ -33,7 +36,7 @@
         <button id="fontDecrease" class="btn btn-outline-secondary btn-sm">A-</button>
         <button id="fontIncrease" class="btn btn-outline-secondary btn-sm">A+</button>
         <span class="badge bg-light text-dark border px-3 py-2">
-          <i class="bi bi-person-circle me-1"></i> Sergio Díaz
+          <i class="bi bi-person-circle me-1"></i> <span id="nombreOperadorHeader">Operador</span>
         </span>
       </div>
     </div>
@@ -53,9 +56,6 @@
             <a href="pasajeros-operador.html" class="nav-link text-dark rounded-3">
               <i class="bi bi-people me-2"></i> Pasajeros
             </a>
-            <a href="#escanerQR" class="nav-link text-dark rounded-3">
-              <i class="bi bi-qr-code-scan me-2"></i> Validar ticket
-            </a>
           </nav>
         </div>
 
@@ -69,124 +69,121 @@
 
       <!-- Contenido Principal del Operador -->
       <main class="col-md-9 col-lg-10 p-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
           <div>
-            <span class="text-uppercase small fw-bold text-brand">Operación Local / Panel General</span>
-            <h1 class="h3 fw-bold mb-0">Tu operación, de un vistazo</h1>
-            <p class="text-muted small mb-0">Organiza tus visitas y ten a mano lo que importa.</p>
+            <span class="text-uppercase small fw-bold text-brand">Web Analytics & Operación Local</span>
+            <h1 class="h3 fw-bold mb-0">Tu operación consolidada, de un vistazo</h1>
+            <p class="text-muted small mb-0">Indicadores globales de tus 3 rutas y análisis comparativo por experiencia.</p>
           </div>
-          <span class="badge bg-warning-subtle text-dark px-3 py-2">15 de septiembre de 2026</span>
+          <span class="badge bg-warning-subtle text-dark px-3 py-2" id="badgeFechaActual">Noviembre 2026</span>
         </div>
 
-        <!-- 3 KPIs -->
+        <!-- 4 KPIs Consolidados de Web Analytics -->
         <div class="row g-3 mb-4">
-          <div class="col-md-4">
-            <div class="card p-3 border-0 shadow-sm rounded-4">
-              <span class="text-muted small">Total Reservas:</span>
-              <h2 class="fw-bold mb-0" id="kpiTotalReservas">15</h2>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card p-3 border-0 shadow-sm rounded-4 h-100">
+              <span class="text-muted small fw-semibold"><i class="bi bi-cash-coin text-success me-1"></i> Ingresos Consolidados</span>
+              <h2 class="h3 fw-bold mb-1 mt-1" id="kpiIngresos">S/ 0.00</h2>
+              <small class="text-muted">Suma de tus 3 rutas activas</small>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card p-3 border-0 shadow-sm rounded-4">
-              <span class="text-muted small">Ingresos Proyectados:</span>
-              <h2 class="fw-bold mb-0">S/ 525.00</h2>
+
+          <div class="col-sm-6 col-xl-3">
+            <div class="card p-3 border-0 shadow-sm rounded-4 h-100">
+              <span class="text-muted small fw-semibold"><i class="bi bi-ticket-perforated text-primary me-1"></i> Reservas Confirmadas</span>
+              <h2 class="h3 fw-bold mb-1 mt-1" id="kpiTotalReservas">0</h2>
+              <small class="text-muted">Tickets QR emitidos</small>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card p-3 border-0 shadow-sm rounded-4">
-              <span class="text-muted small">Aforo Chankillo:</span>
-              <h2 class="fw-bold mb-0">8 / 15</h2>
+
+          <div class="col-sm-6 col-xl-3">
+            <div class="card p-3 border-0 shadow-sm rounded-4 h-100">
+              <span class="text-muted small fw-semibold"><i class="bi bi-receipt text-info me-1"></i> Ticket Promedio (KPI)</span>
+              <h2 class="h3 fw-bold mb-1 mt-1" id="kpiTicketPromedio">S/ 0.00</h2>
+              <small class="text-muted">Gasto medio por reserva</small>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-3">
+            <div class="card p-3 border-0 shadow-sm rounded-4 h-100">
+              <span class="text-muted small fw-semibold"><i class="bi bi-graph-up-arrow text-warning me-1"></i> Conversión Web (KPI)</span>
+              <h2 class="h3 fw-bold mb-1 mt-1" id="kpiConversionWeb">0.0%</h2>
+              <small class="text-muted" id="kpiDetalleVistas">0 reservas de 0 visitas</small>
             </div>
           </div>
         </div>
 
-        <!-- Los 2 Gráficos de Chart.js + Escáner QR -->
+        <!-- Gráficos Desglosados por Tour: Google Charts + dc.js + Escáner QR -->
         <div class="row g-4 mb-4">
+          <!-- Gráfico 1: Google Charts -->
           <div class="col-lg-5">
             <div class="card p-4 border-0 shadow-sm rounded-4 h-100">
-              <h3 class="h6 fw-bold mb-1">1. Ventas semanales</h3>
-              <p class="small text-muted mb-3">Reservas confirmadas por día de la semana (RF-08).</p>
-              <canvas id="chartVentasSemanales"></canvas>
+              <div class="d-flex justify-content-between align-items-start mb-1">
+                <h3 class="h6 fw-bold mb-0">1. Embudo Web por Ruta</h3>
+                <span class="badge bg-light text-dark border">Google Charts</span>
+              </div>
+              <p class="small text-muted mb-2">Comparativa de visitas vs. reservas en cada uno de tus 3 tours.</p>
+              <div id="google_chart_conversion" style="width: 100%; height: 260px;"></div>
             </div>
           </div>
 
+          <!-- Gráfico 2: dc.js + Crossfilter -->
           <div class="col-lg-4">
             <div class="card p-4 border-0 shadow-sm rounded-4 h-100">
-              <h3 class="h6 fw-bold mb-1">2. Distribución de pasajeros</h3>
-              <p class="small text-muted mb-3">Ocupación por ruta turística activa (RF-08).</p>
-              <canvas id="chartDistribucionPasajeros"></canvas>
+              <div class="d-flex justify-content-between align-items-start mb-1">
+                <h3 class="h6 fw-bold mb-0">2. Pasajeros por Tour</h3>
+                <span class="badge bg-light text-dark border">dc.js + Crossfilter</span>
+              </div>
+              <p class="small text-muted mb-2">Distribución interactiva de ocupación en tus 3 experiencias.</p>
+              <div id="dc_chart_tours" class="d-flex justify-content-center align-items-center" style="width: 100%; min-height: 260px;"></div>
             </div>
           </div>
 
+          <!-- Escáner QR -->
           <div class="col-lg-3" id="escanerQR">
             <div class="card p-4 border-0 shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between">
               <div>
-                <h3 class="h6 fw-bold mb-2">Escáner QR</h3>
+                <h3 class="h6 fw-bold mb-2">Escáner QR en Ruta</h3>
                 <div class="bg-dark text-white rounded-3 p-4 text-center my-3">
                   <i class="bi bi-qr-code-scan display-5 d-block mb-2"></i>
                   <small id="estadoCamara">Cámara sin activar</small>
                 </div>
-                <p class="small text-muted">La página solicitará permiso para usar su cámara solo para leer el ticket.</p>
+                <p class="small text-muted">Valida el código QR del turista al abordar (funciona sin conexión).</p>
               </div>
-              <button class="btn btn-brand w-100 fw-semibold" onclick="document.getElementById('estadoCamara').textContent='✓ Ticket #ACP-CHK-2026 Canjeado (Válido para 2 pasajeros)'; alert('Ticket QR validado con éxito. Estado actualizado a Canjeado.');">
+              <button class="btn btn-brand w-100 fw-semibold" onclick="document.getElementById('estadoCamara').textContent='✓ Ticket QR Canjeado con éxito'; alert('Ticket QR validado en puerta. Estado actualizado a Canjeado.');">
                 Preparar lectura QR
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Acceso directo a Pasajeros (Módulo 8) -->
-        <div class="card p-3 border-0 shadow-sm rounded-4 d-flex flex-row justify-content-between align-items-center">
+        <!-- Desglose de las 3 rutas a cargo del operador -->
+        <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
+          <h3 class="h6 fw-bold mb-3">Mis experiencias asignadas (3 rutas a cargo)</h3>
+          <div class="row g-3" id="misExperienciasOperador"></div>
+        </div>
+
+        <!-- Acceso directo a Pasajeros -->
+        <div class="card p-3 border-0 shadow-sm rounded-4 d-flex flex-wrap flex-row justify-content-between align-items-center gap-2">
           <div>
             <strong>Prepara la bienvenida a tus pasajeros</strong>
-            <span class="d-block small text-muted">Consulta nombres, fechas y estado de cada reserva antes de la visita.</span>
+            <span class="d-block small text-muted">Consulta y filtra por tour los nombres, fechas y estado de cada reserva.</span>
           </div>
           <a href="pasajeros-operador.html" class="btn btn-outline-primary fw-semibold">
             Ver lista de pasajeros →
           </a>
         </div>
-        <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
-          <h3 class="h6 fw-bold mb-3">Mis experiencias asignadas (3 rutas a cargo)</h3>
-          <div class="row g-3" id="misExperienciasOperador"></div>
-        </div>
       </main>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Librerías oficiales: Google Charts + D3 + Crossfilter + dc.js -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter2/1.5.2/crossfilter.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/4.2.4/dc.min.js"></script>
+
   <script src="js/accessibility.js"></script>
   <script src="js/charts-operador.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const op = obtenerOperadorActivo();
-      const misTours = obtenerToursDelOperadorActivo();
-      const misReservas = obtenerReservasDelOperadorActivo();
-
-      // Actualizar nombre del operador en cabecera
-      if (document.getElementById('nombreOperadorHeader')) {
-        document.getElementById('nombreOperadorHeader').textContent = op.nombre;
-      }
-
-      // Calcular KPIs reales solo de este operador
-      const totalIngresos = misReservas.reduce((acc, r) => acc + (r.monto || 0), 0);
-      if (document.getElementById('kpiTotalReservas')) document.getElementById('kpiTotalReservas').textContent = misReservas.length;
-      if (document.getElementById('kpiIngresos')) document.getElementById('kpiIngresos').textContent = `S/ ${totalIngresos}.00`;
-
-      // Renderizar sus 3 tours a cargo
-      const contTours = document.getElementById('misExperienciasOperador');
-      if (contTours) {
-        contTours.innerHTML = misTours.map(t => `
-          <div class="col-md-4">
-            <div class="border rounded-3 p-3 h-100">
-              <span class="badge bg-primary-subtle text-primary mb-1">${t.destino}</span>
-              <h4 class="h6 fw-bold mb-1">${t.titulo}</h4>
-              <small class="text-muted d-block">Tarifa: S/ ${t.precio}.00 • Aforo máx: ${t.aforo}</small>
-            </div>
-          </div>
-        `).join('');
-      }
-    });
-  </script>
 </body>
 </html>

@@ -30,3 +30,7 @@
   height: 190px;
   object-fit: cover;
 }
+
+.btn-sm {
+  margin-bottom: 2px;
+}

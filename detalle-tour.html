@@ -164,6 +164,9 @@
       const tour = obtenerTourPorId(idTour);
 
       if (tour) {
+        // Registra +1 vista en Web Analytics cada vez que un turista abre este tour
+        registrarVisitaTour(tour.id);
+
         document.getElementById('breadcrumbDestino').textContent = `Tours en ${tour.destino}`;
         document.getElementById('breadcrumbTitulo').textContent = tour.titulo;
         document.getElementById('detalleCategoria').textContent = `${tour.destino} • ${tour.categoria}`;

@@ -124,3 +124,90 @@ async function restaurarDatosFabrica() {
   await inicializarBaseDatos();
   window.location.reload();
 }
+
+// =========================================================
+// MÓDULO DE WEB ANALYTICS Y CÁLCULO DE KPIs POR OPERADOR
+// =========================================================
+
+// 1. Medir y recolectar cada visita a la ficha de un tour
+function registrarVisitaTour(tourId) {
+  if (!tourId) return;
+  const visitasGuardadas = JSON.parse(localStorage.getItem('analyticsVisitasTours')) || {
+    'TOUR-01': 24,
+    'TOUR-02': 18,
+    'TOUR-03': 31,
+    'TOUR-04': 14,
+    'TOUR-05': 12,
+    'TOUR-06': 21,
+    'TOUR-07': 16,
+    'TOUR-08': 19,
+    'TOUR-09': 15
+  };
+
+  visitasGuardadas[tourId] = (visitasGuardadas[tourId] || 0) + 1;
+  localStorage.setItem('analyticsVisitasTours', JSON.stringify(visitasGuardadas));
+}
+
+// 2. Obtener las visitas acumuladas de un tour específico
+function obtenerVisitasPorTour(tourId) {
+  const visitasGuardadas = JSON.parse(localStorage.getItem('analyticsVisitasTours')) || {
+    'TOUR-01': 24,
+    'TOUR-02': 18,
+    'TOUR-03': 31,
+    'TOUR-04': 14,
+    'TOUR-05': 12,
+    'TOUR-06': 21,
+    'TOUR-07': 16,
+    'TOUR-08': 19,
+    'TOUR-09': 15
+  };
+  return visitasGuardadas[tourId] || 0;
+}
+
+// 3. Analizar y calcular los 4 KPIs reales del operador conectado
+function obtenerMetricasAnalyticsOperador() {
+  const misTours = obtenerToursDelOperadorActivo();
+  const misReservas = obtenerReservasDelOperadorActivo();
+
+  const totalReservas = misReservas.length;
+  const totalPasajeros = misReservas.reduce((acc, r) => acc + (parseInt(r.pasajeros) || 0), 0);
+  const ingresosTotales = misReservas.reduce((acc, r) => acc + (parseFloat(r.monto) || 0), 0);
+
+  // Sumar todas las vistas recibidas en los 3 tours de este operador
+  const totalVistas = misTours.reduce((acc, t) => acc + obtenerVisitasPorTour(t.id), 0);
+
+  // KPI 1: Ticket Promedio (Ingresos totales / Cantidad de reservas)
+  const ticketPromedio = totalReservas > 0 ? (ingresosTotales / totalReservas).toFixed(2) : '0.00';
+
+  // KPI 2: Tasa de Conversión Web ((Reservas / Vistas) * 100)
+  const tasaConversion = totalVistas > 0 ? ((totalReservas / totalVistas) * 100).toFixed(1) : '0.0';
+
+  // Desglose detallado por cada uno de sus 3 tours (para gráficos Chart.js)
+  const desglosePorTour = misTours.map(tour => {
+    const reservasTour = misReservas.filter(r => r.tourId === tour.id);
+    const pasajerosTour = reservasTour.reduce((acc, r) => acc + (parseInt(r.pasajeros) || 0), 0);
+    const ingresosTour = reservasTour.reduce((acc, r) => acc + (parseFloat(r.monto) || 0), 0);
+    const vistasTour = obtenerVisitasPorTour(tour.id);
+
+    return {
+      id: tour.id,
+      titulo: tour.titulo,
+      destino: tour.destino,
+      vistas: vistasTour,
+      reservas: reservasTour.length,
+      pasajeros: pasajerosTour,
+      ingresos: ingresosTour,
+      aforoMax: tour.aforo
+    };
+  });
+
+  return {
+    totalVistas,
+    totalReservas,
+    totalPasajeros,
+    ingresosTotales,
+    ticketPromedio,
+    tasaConversion,
+    desglosePorTour
+  };
+}
