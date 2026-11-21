@@ -191,7 +191,7 @@
           <td><span class="badge bg-light text-dark border">${r.id}</span></td>
           <td class="fw-semibold">${r.titular}</td>
           <td>${r.experiencia}</td>
-          <td>${r.fecha}</td>
+          <td>${normalizarFechaISO(r.fecha)}</td>
           <td>${r.pasajeros}</td>
           <td><span class="badge bg-success-subtle text-success">${r.estado}</span></td>
           <td class="text-end">

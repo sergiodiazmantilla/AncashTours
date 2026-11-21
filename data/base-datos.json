@@ -175,7 +175,7 @@
       "operadorId": "OP-01",
       "titular": "Nicolás Poma",
       "experiencia": "Observatorio Solar Chankillo",
-      "fecha": "15/09/2026",
+      "fecha": "2026-09-15",
       "pasajeros": 2,
       "monto": 525,
       "estado": "Reservado"
@@ -186,7 +186,7 @@
       "operadorId": "OP-01",
       "titular": "Camila Rojas",
       "experiencia": "Fortaleza de Chanquillo y Pampa",
-      "fecha": "16/09/2026",
+      "fecha": "2026-09-16",
       "pasajeros": 2,
       "monto": 380,
       "estado": "Reservado"
@@ -197,7 +197,7 @@
       "operadorId": "OP-02",
       "titular": "Andrés Vega",
       "experiencia": "Paseo Náutico Isla Blanca",
-      "fecha": "16/09/2026",
+      "fecha": "2026-09-16",
       "pasajeros": 4,
       "monto": 180,
       "estado": "Reservado"
@@ -208,7 +208,7 @@
       "operadorId": "OP-03",
       "titular": "Lucía Salazar",
       "experiencia": "Complejo Arqueológico Sechín",
-      "fecha": "15/09/2026",
+      "fecha": "2026-09-15",
       "pasajeros": 3,
       "monto": 240,
       "estado": "Reservado"
