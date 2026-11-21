@@ -73,9 +73,7 @@ function dibujarTodosLosGraficos() {
   dibujarDcJsParticipacionTours();
 }
 
-// =========================================================
 // GRÁFICO 1: GOOGLE CHARTS (Nombres completos y legibles)
-// =========================================================
 function dibujarGoogleChartConversion() {
   const contenedor = document.getElementById('google_chart_conversion');
   if (!contenedor || typeof google === 'undefined' || !google.visualization) return;
@@ -117,67 +115,7 @@ function dibujarGoogleChartConversion() {
   chart.draw(data, options);
 }
 
-// =========================================================
 // GRÁFICO 2: DC.JS + CROSSFILTER (Grafico Dona limpia + Leyenda HTML aparte)
-// =========================================================
-/*
-function dibujarDcJsParticipacionTours() {
-  const contenedor = document.getElementById('dc_chart_tours');
-  if (!contenedor || typeof dc === 'undefined' || typeof crossfilter === 'undefined') return;
-
-  contenedor.innerHTML = '';
-  const isHighContrast = document.body.classList.contains('high-contrast');
-  const paleta = isHighContrast ? ['#ffff00', '#00e5ff', '#ffffff'] : ['#0a587a', '#38bdf8', '#0284c7'];
-
-  const datosTours = metricasActualesOperador.desglosePorTour.map(t => ({
-    id: t.id,
-    ruta: NOMBRES_CORTOS_TOURS[t.id] || t.titulo,
-    pasajeros: t.pasajeros > 0 ? t.pasajeros : 1,
-    pasajerosReales: t.pasajeros
-  }));
-
-  const ndx = crossfilter(datosTours);
-  const rutaDim = ndx.dimension(d => d.ruta);
-  const pasajerosGroup = rutaDim.group().reduceSum(d => d.pasajeros);
-
-  // Contenedor interno exclusivo para el SVG de la dona
-  const svgBox = document.createElement('div');
-  svgBox.id = 'dc_pie_svg_box';
-  svgBox.className = 'd-flex justify-content-center';
-  contenedor.appendChild(svgBox);
-
-  const pieChart = dc.pieChart('#dc_pie_svg_box');
-
-  pieChart
-    .width(210)
-    .height(210)
-    .radius(95)
-    .innerRadius(48)
-    .slicesCap(3)
-    .dimension(rutaDim)
-    .group(pasajerosGroup)
-    .colors(d3.scaleOrdinal().range(paleta))
-    // Dentro de la dona solo ponemos el número corto para que nunca se cruce
-    .label(d => `${d.value} pax`)
-    .title(d => `${d.key}: ${d.value} pasajeros`);
-
-  pieChart.render();
-
-  // Leyenda limpia y ordenada debajo de la dona (sin encimarse)
-  const leyendaDiv = document.createElement('div');
-  leyendaDiv.className = 'mt-2 w-100 d-flex flex-column gap-1 small';
-  leyendaDiv.innerHTML = datosTours.map((item, idx) => `
-    <div class="d-flex justify-content-between align-items-center px-2">
-      <span class="d-flex align-items-center gap-2">
-        <span style="display:inline-block; width:12px; height:12px; border-radius:3px; background:${paleta[idx % paleta.length]}; border: 1px solid #94a3b8;"></span>
-        <span>${item.ruta}</span>
-      </span>
-      <strong>${item.pasajerosReales} pax</strong>
-    </div>
-  `).join('');
-  contenedor.appendChild(leyendaDiv);
-}
-*/
 function dibujarDcJsParticipacionTours() {
   const contenedor = document.getElementById('dc_chart_tours');
   if (!contenedor || typeof dc === 'undefined' || typeof crossfilter === 'undefined') return;

@@ -103,9 +103,7 @@ body.high-contrast .btn-primary {
   outline-offset: 2px;
 }
 
-/* =========================================================
-   TECLADO VIRTUAL + FLECHAS DIRECCIONALES UNIFICADOS
-   ========================================================= */
+/* TECLADO VIRTUAL + FLECHAS DIRECCIONALES UNIFICADOS */
 #virtualKeyboardContainer {
   position: fixed;
   bottom: 0;
@@ -269,4 +267,42 @@ body.high-contrast .vk-key:hover,
 body.high-contrast .navpad-btn:hover {
   background-color: #ffff00 !important;
   color: #000000 !important;
+}
+
+/*CORRECCIÓN GLOBAL DE ALTO CONTRASTE (FONDOS Y TEXTOS)*/
+body.high-contrast,
+body.high-contrast main,
+body.high-contrast aside,
+body.high-contrast header,
+body.high-contrast footer,
+body.high-contrast .card,
+body.high-contrast .bg-white,
+body.high-contrast .bg-light,
+body.high-contrast .bg-light-subtle,
+body.high-contrast .table,
+body.high-contrast .table th,
+body.high-contrast .table td,
+body.high-contrast .input-group-text,
+body.high-contrast .form-control,
+body.high-contrast .form-select {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffff00 !important;
+}
+
+/* Textos secundarios visibles sobre fondo negro */
+body.high-contrast .text-muted,
+body.high-contrast .text-dark,
+body.high-contrast small,
+body.high-contrast label,
+body.high-contrast p,
+body.high-contrast span {
+  color: #ffffff !important;
+}
+
+/* Badges e indicadores dentro de cajas */
+body.high-contrast .badge {
+  background-color: #111111 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
 }
