@@ -37,7 +37,7 @@
       "aforo": 15,
       "puntoEncuentro": "Plaza de Armas de Casma",
       "descripcion": "Camina entre trece torres que cuentan una historia escrita con la luz del sol.",
-      "imagen": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
+      "imagen": "img/observatorio_chankillo.jpg"
     },
     {
       "id": "TOUR-02",
@@ -53,7 +53,7 @@
       "aforo": 20,
       "puntoEncuentro": "Museo Regional Max Uhle - Casma",
       "descripcion": "Acércate a los relieves de piedra y a la memoria ancestral del valle de Casma.",
-      "imagen": "https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?auto=format&fit=crop&w=800&q=80"
+      "imagen": "img/complejo_arq_sechin.jpg"
     },
     {
       "id": "TOUR-03",
@@ -101,7 +101,7 @@
       "aforo": 15,
       "puntoEncuentro": "Óvalo Tortugas - Casma",
       "descripcion": "Complejo monumental construido frente al océano Pacífico con terrazas ceremoniales.",
-      "imagen": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
+      "imagen": "img/templo_lasaldas.jpg"
     },
     {
       "id": "TOUR-06",
@@ -133,7 +133,7 @@
       "aforo": 18,
       "puntoEncuentro": "Plaza de Armas de Chimbote",
       "descripcion": "Vista panorámica de toda la bahía chimbotana y paseo por el malecón.",
-      "imagen": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+      "imagen": "img/bahia_elferrol_cerrolapaz.jpg"
     },
     {
       "id": "TOUR-08",
@@ -165,7 +165,7 @@
       "aforo": 20,
       "puntoEncuentro": "Plaza de Armas de Casma",
       "descripcion": "Visita guiada a una de las plazas circulares más antiguas de América.",
-      "imagen": "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80"
+      "imagen": "img/museo_max_uhle.jpg"
     }
   ],
   "reservasIniciales": [
