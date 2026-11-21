@@ -1,0 +1,9 @@
+# Carpeta personal de utilidades y respaldos locales
+util/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuraciones locales de editor
+.vscode/
